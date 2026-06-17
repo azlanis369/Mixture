@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { todayMY } from "@/lib/date";
@@ -76,14 +77,23 @@ function PayslipCard({
         Caruman majikan: KWSP {rm(slip.epfEmployer)} • PERKESO {rm(slip.socsoEmployer)} • SIP {rm(slip.eisEmployer)}
       </div>
 
-      {showFinalize && slip.status === "DRAFT" && (
-        <form action={finalizePayslipAction} className="mt-3">
-          <input type="hidden" name="id" value={slip.id} />
-          <Button type="submit" variant="secondary" className="!py-1.5 !px-3 !text-xs">
-            Muktamadkan
-          </Button>
-        </form>
-      )}
+      <div className="flex items-center gap-2 mt-3">
+        <Link
+          href={`/print/payslip/${slip.id}`}
+          target="_blank"
+          className="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-medium bg-white border border-slate-300 text-slate-700 hover:bg-slate-50"
+        >
+          Cetak / PDF
+        </Link>
+        {showFinalize && slip.status === "DRAFT" && (
+          <form action={finalizePayslipAction}>
+            <input type="hidden" name="id" value={slip.id} />
+            <Button type="submit" variant="secondary" className="!py-1.5 !px-3 !text-xs">
+              Muktamadkan
+            </Button>
+          </form>
+        )}
+      </div>
     </Card>
   );
 }

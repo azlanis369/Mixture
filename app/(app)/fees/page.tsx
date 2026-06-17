@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -90,19 +91,30 @@ export default async function FeesPage() {
                       <Badge tone={statusTone(inv.status)}>{INVOICE_STATUS[inv.status]}</Badge>
                     </div>
                   </div>
-                  {inv.status !== "PAID" && (
-                    <div className="flex flex-wrap items-center gap-2 mt-2">
-                      <PaymentButton invoiceId={inv.id} outstanding={due} />
-                      <a
-                        href={waReminder(inv.student.parentPhone, inv.student.parentName, inv.student.name, inv.month, due)}
+                  <div className="flex flex-wrap items-center gap-2 mt-2">
+                    {inv.status !== "PAID" && (
+                      <>
+                        <PaymentButton invoiceId={inv.id} outstanding={due} />
+                        <a
+                          href={waReminder(inv.student.parentPhone, inv.student.parentName, inv.student.name, inv.month, due)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-500 text-white hover:bg-emerald-600"
+                        >
+                          <Icon.whatsapp className="w-4 h-4" /> Peringatan
+                        </a>
+                      </>
+                    )}
+                    {inv.paidAmount > 0 && (
+                      <Link
+                        href={`/print/receipt/${inv.id}`}
                         target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-500 text-white hover:bg-emerald-600"
+                        className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium bg-white border border-slate-300 text-slate-700 hover:bg-slate-50"
                       >
-                        <Icon.whatsapp className="w-4 h-4" /> Peringatan
-                      </a>
-                    </div>
-                  )}
+                        Resit / PDF
+                      </Link>
+                    )}
+                  </div>
                 </div>
               );
             })}
