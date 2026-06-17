@@ -29,6 +29,7 @@ const NAV: NavItem[] = [
   { href: "/prospects", label: "Prospek", icon: "target", roles: MANAGER_ROLES },
   { href: "/announcements", label: "Pengumuman", icon: "megaphone" },
   { href: "/staff", label: "Pekerja", icon: "users", roles: MANAGER_ROLES },
+  { href: "/reports", label: "Laporan", icon: "chart", roles: MANAGER_ROLES },
   { href: "/branches", label: "Cawangan", icon: "building", roles: ADMIN_ROLES },
 ];
 
