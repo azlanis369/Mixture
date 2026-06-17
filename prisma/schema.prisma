@@ -21,14 +21,15 @@ model Branch {
   isHQ      Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  users         User[]
-  attendances   Attendance[]
-  prospects     Prospect[]
-  tasks         Task[]
-  announcements Announcement[]
-  students      Student[]
-  classes       ClassRoom[]
-  invoices      Invoice[]
+  users             User[]
+  attendances       Attendance[]
+  prospects         Prospect[]
+  tasks             Task[]
+  announcements     Announcement[]
+  students          Student[]
+  classes           ClassRoom[]
+  invoices          Invoice[]
+  studentAttendances StudentAttendance[]
 }
 
 // Pengguna: pekerja tadika pelbagai jawatan
@@ -265,7 +266,26 @@ model Student {
   notes           String?
   createdAt       DateTime @default(now())
 
-  invoices Invoice[]
+  invoices    Invoice[]
+  attendances StudentAttendance[]
+}
+
+// Kehadiran murid harian (direkod oleh guru/ketua cawangan)
+model StudentAttendance {
+  id           String   @id @default(cuid())
+  studentId    String
+  student      Student  @relation(fields: [studentId], references: [id])
+  branchId     String?
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+  date         String   // YYYY-MM-DD
+  status       String   @default("PRESENT") // PRESENT | ABSENT | LATE | SICK | LEAVE
+  arrivedAt    String?  // HH:MM
+  note         String?
+  notified     Boolean  @default(false) // ibu bapa sudah dimaklumkan?
+  recordedById String?
+  createdAt    DateTime @default(now())
+
+  @@unique([studentId, date])
 }
 
 // Invois yuran bulanan murid

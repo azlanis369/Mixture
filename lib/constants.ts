@@ -134,3 +134,11 @@ export const PAYMENT_METHOD: Record<string, string> = {
   TRANSFER: "Pindahan Bank",
   EWALLET: "E-Dompet",
 };
+
+export const STUDENT_ATT_STATUS: Record<string, string> = {
+  PRESENT: "Hadir",
+  LATE: "Lewat",
+  ABSENT: "Tidak Hadir",
+  SICK: "Sakit",
+  LEAVE: "Cuti",
+};
