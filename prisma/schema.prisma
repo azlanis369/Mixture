@@ -1,0 +1,343 @@
+// Skema database untuk Sistem Pengurusan Tadika (Mixture)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Cawangan tadika (1 HQ + 7 branch)
+model Branch {
+  id        String   @id @default(cuid())
+  name      String
+  code      String   @unique
+  address   String?
+  phone     String?
+  latitude  Float?
+  longitude Float?
+  radius    Int      @default(150) // radius geofence (meter) untuk punch card
+  isHQ      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  users             User[]
+  attendances       Attendance[]
+  prospects         Prospect[]
+  tasks             Task[]
+  announcements     Announcement[]
+  students          Student[]
+  classes           ClassRoom[]
+  invoices          Invoice[]
+  studentAttendances StudentAttendance[]
+  activities        Activity[]
+}
+
+// Pengguna: pekerja tadika pelbagai jawatan
+// role: SUPER_ADMIN | ADMIN | HEAD_OF_BRANCH | STAFF
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  phone        String?
+  passwordHash String
+  role         String   @default("STAFF")
+  position     String?  // jawatan: Guru, Pembantu, Admin Cawangan, dll
+  avatarUrl    String?
+  active       Boolean  @default(true)
+  branchId     String?
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+  createdAt    DateTime @default(now())
+
+  // Kelayakan cuti tahunan (hari) ikut jenis
+  annualQuota    Int     @default(14)
+  medicalQuota   Int     @default(14)
+  emergencyQuota Int     @default(7)
+
+  // Maklumat gaji & berkanun (untuk payroll)
+  basicSalary  Float   @default(0)
+  allowance    Float   @default(0) // elaun tetap bulanan
+  epfNo        String?
+  socsoNo      String?
+  taxNo        String?
+
+  // Syif kerja
+  shiftId      String?
+  shift        Shift?  @relation(fields: [shiftId], references: [id])
+
+  attendances      Attendance[]
+  leaveRequests    LeaveRequest[]  @relation("Requester")
+  approvals        LeaveRequest[]  @relation("Approver")
+  tasks            Task[]          @relation("Assignee")
+  createdTasks     Task[]          @relation("Creator")
+  prospects        Prospect[]      @relation("Handler")
+  announcements    Announcement[]
+  claims           Claim[]         @relation("Claimant")
+  claimApprovals   Claim[]         @relation("ClaimApprover")
+  overtimes        Overtime[]      @relation("OtRequester")
+  otApprovals      Overtime[]      @relation("OtApprover")
+  payslips         Payslip[]
+  taughtClasses    ClassRoom[]     @relation("ClassTeacher")
+}
+
+// Syif kerja (waktu masuk/keluar + rehat)
+model Shift {
+  id           String   @id @default(cuid())
+  name         String
+  startTime    String   // HH:MM
+  endTime      String   // HH:MM
+  breakMinutes Int      @default(60)
+  branchId     String?
+  createdAt    DateTime @default(now())
+
+  users User[]
+}
+
+// Tuntutan (perubatan, batuan/mileage, perbelanjaan, lain-lain)
+model Claim {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation("Claimant", fields: [userId], references: [id])
+  type         String   // MEDICAL | MILEAGE | EXPENSE | OTHER
+  title        String
+  amount       Float    // jumlah RM (untuk mileage = km * kadar)
+  distanceKm   Float?   // jika mileage
+  claimDate    String   // YYYY-MM-DD
+  receiptPhoto String?  // data URL resit
+  status       String   @default("PENDING") // PENDING | APPROVED | REJECTED | PAID
+  approverId   String?
+  approver     User?    @relation("ClaimApprover", fields: [approverId], references: [id])
+  reviewNote   String?
+  createdAt    DateTime @default(now())
+}
+
+// Permohonan kerja lebih masa (overtime)
+model Overtime {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation("OtRequester", fields: [userId], references: [id])
+  date       String   // YYYY-MM-DD
+  hours      Float
+  rate       Float    @default(1.5) // pengganda kadar (1.5x biasa, 2x cuti umum)
+  reason     String
+  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  approverId String?
+  approver   User?    @relation("OtApprover", fields: [approverId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+// Slip gaji bulanan dengan potongan berkanun Malaysia
+model Payslip {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  month         String   // YYYY-MM
+  basicSalary   Float
+  allowance     Float    @default(0)
+  overtimePay   Float    @default(0)
+  claimsTotal   Float    @default(0)
+  grossPay      Float
+  epfEmployee   Float    @default(0)
+  epfEmployer   Float    @default(0)
+  socsoEmployee Float    @default(0)
+  socsoEmployer Float    @default(0)
+  eisEmployee   Float    @default(0)
+  eisEmployer   Float    @default(0)
+  pcb           Float    @default(0) // potongan cukai berjadual (LHDN)
+  netPay        Float
+  status        String   @default("DRAFT") // DRAFT | FINALIZED
+  generatedById String?
+  createdAt     DateTime @default(now())
+
+  @@unique([userId, month])
+}
+
+// Sistem punch card harian (clock in / clock out) dengan lokasi + gambar
+model Attendance {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  branchId     String?
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+  date         String   // YYYY-MM-DD (waktu Malaysia)
+  clockInAt    DateTime?
+  clockInLat   Float?
+  clockInLng   Float?
+  clockInAddr  String?
+  clockInPhoto String?  // data URL gambar bukti
+  clockOutAt    DateTime?
+  clockOutLat   Float?
+  clockOutLng   Float?
+  clockOutAddr  String?
+  clockOutPhoto String?
+  status       String   @default("PRESENT") // PRESENT | LATE | LEAVE
+  createdAt    DateTime @default(now())
+
+  @@unique([userId, date])
+}
+
+// Permohonan cuti (cuti awal / emergency / tahunan, dll)
+model LeaveRequest {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation("Requester", fields: [userId], references: [id])
+  type       String   // ANNUAL | EMERGENCY | MEDICAL | EARLY_LEAVE | UNPAID
+  startDate  String
+  endDate    String
+  startTime  String?  // untuk cuti awal (keluar awal)
+  reason     String
+  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  approverId String?
+  approver   User?    @relation("Approver", fields: [approverId], references: [id])
+  reviewNote String?
+  createdAt  DateTime @default(now())
+}
+
+// Tugas pekerja (terutama Head of Branch: outreach, promosi, edukasi)
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  category    String   @default("GENERAL") // OUTREACH | PROMOTION | EDUCATION | MEETING | TRAINING | GENERAL
+  priority    String   @default("MEDIUM")  // LOW | MEDIUM | HIGH
+  status      String   @default("TODO")    // TODO | IN_PROGRESS | DONE
+  dueDate     String?
+  assigneeId  String?
+  assignee    User?    @relation("Assignee", fields: [assigneeId], references: [id])
+  creatorId   String?
+  creator     User?    @relation("Creator", fields: [creatorId], references: [id])
+  branchId    String?
+  branch      Branch?  @relation(fields: [branchId], references: [id])
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+}
+
+// Prospek ibu bapa (lead) yang diuruskan Head of Branch melalui WhatsApp
+model Prospect {
+  id            String   @id @default(cuid())
+  parentName    String
+  phone         String
+  childName     String?
+  childAge      String?
+  source        String   @default("WALK_IN") // WHATSAPP | FACEBOOK | REFERRAL | WALK_IN | OTHER
+  status        String   @default("NEW")      // NEW | CONTACTED | VISIT | ENROLLED | LOST
+  notes         String?
+  branchId      String?
+  branch        Branch?  @relation(fields: [branchId], references: [id])
+  handledById   String?
+  handledBy     User?    @relation("Handler", fields: [handledById], references: [id])
+  lastContactAt DateTime?
+  converted     Boolean  @default(false) // sudah ditukar ke murid?
+  createdAt     DateTime @default(now())
+}
+
+// Kelas / darjah dalam tadika
+model ClassRoom {
+  id        String   @id @default(cuid())
+  name      String   // cth: Prasekolah 5 Tahun, Playgroup
+  level     String?  // cth: 4 tahun, 5 tahun
+  capacity  Int      @default(25)
+  branchId  String?
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+  teacherId String?
+  teacher   User?    @relation("ClassTeacher", fields: [teacherId], references: [id])
+  createdAt DateTime @default(now())
+
+  students   Student[]
+  activities Activity[]
+}
+
+// Galeri aktiviti murid (guru muat naik gambar, ibu bapa nampak perkembangan)
+model Activity {
+  id          String   @id @default(cuid())
+  title       String
+  caption     String?
+  photo       String   // data URL gambar
+  date        String   // YYYY-MM-DD
+  branchId    String?
+  branch      Branch?  @relation(fields: [branchId], references: [id])
+  classId     String?
+  classRoom   ClassRoom? @relation(fields: [classId], references: [id])
+  authorId    String?
+  createdAt   DateTime @default(now())
+}
+
+// Murid berdaftar
+model Student {
+  id              String   @id @default(cuid())
+  name            String
+  dob             String?  // YYYY-MM-DD
+  gender          String?  // L | P
+  parentName      String
+  parentPhone     String
+  parentEmail     String?
+  address         String?
+  branchId        String?
+  branch          Branch?  @relation(fields: [branchId], references: [id])
+  classId         String?
+  classRoom       ClassRoom? @relation(fields: [classId], references: [id])
+  enrollmentDate  String   // YYYY-MM-DD
+  status          String   @default("ACTIVE") // ACTIVE | GRADUATED | WITHDRAWN
+  monthlyFee      Float    @default(0) // yuran bulanan
+  registrationFee Float    @default(0) // yuran pendaftaran
+  notes           String?
+  accessToken     String   @unique @default(cuid()) // pautan portal ibu bapa
+  createdAt       DateTime @default(now())
+
+  invoices    Invoice[]
+  attendances StudentAttendance[]
+}
+
+// Kehadiran murid harian (direkod oleh guru/ketua cawangan)
+model StudentAttendance {
+  id           String   @id @default(cuid())
+  studentId    String
+  student      Student  @relation(fields: [studentId], references: [id])
+  branchId     String?
+  branch       Branch?  @relation(fields: [branchId], references: [id])
+  date         String   // YYYY-MM-DD
+  status       String   @default("PRESENT") // PRESENT | ABSENT | LATE | SICK | LEAVE
+  arrivedAt    String?  // HH:MM
+  note         String?
+  notified     Boolean  @default(false) // ibu bapa sudah dimaklumkan?
+  recordedById String?
+  createdAt    DateTime @default(now())
+
+  @@unique([studentId, date])
+}
+
+// Invois yuran bulanan murid
+model Invoice {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id])
+  branchId    String?
+  branch      Branch?  @relation(fields: [branchId], references: [id])
+  month       String   // YYYY-MM
+  description String   @default("Yuran Bulanan")
+  amount      Float
+  paidAmount  Float    @default(0)
+  status      String   @default("UNPAID") // UNPAID | PARTIAL | PAID
+  dueDate     String
+  method      String?  // CASH | TRANSFER | EWALLET
+  paidAt      DateTime?
+  note        String?
+  createdAt   DateTime @default(now())
+
+  @@unique([studentId, month])
+}
+
+// Pengumuman / notis (Telegram untuk program & mesyuarat, WhatsApp umum)
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  channel   String   @default("INTERNAL") // TELEGRAM | WHATSAPP | INTERNAL
+  category  String   @default("GENERAL")  // PROGRAM | TRAINING | MEETING | NOTICE | GENERAL
+  authorId  String?
+  author    User?    @relation(fields: [authorId], references: [id])
+  branchId  String?  // null = semua cawangan
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+  pinned    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
