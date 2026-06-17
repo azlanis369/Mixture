@@ -111,3 +111,26 @@ export const PAYSLIP_STATUS: Record<string, string> = {
 
 // Kadar batuan (RM sekilometer) — boleh dikonfigurasi
 export const MILEAGE_RATE = 0.6;
+
+export const STUDENT_STATUS: Record<string, string> = {
+  ACTIVE: "Aktif",
+  GRADUATED: "Bergraduat",
+  WITHDRAWN: "Berhenti",
+};
+
+export const GENDER_LABEL: Record<string, string> = {
+  L: "Lelaki",
+  P: "Perempuan",
+};
+
+export const INVOICE_STATUS: Record<string, string> = {
+  UNPAID: "Belum Bayar",
+  PARTIAL: "Sebahagian",
+  PAID: "Lunas",
+};
+
+export const PAYMENT_METHOD: Record<string, string> = {
+  CASH: "Tunai",
+  TRANSFER: "Pindahan Bank",
+  EWALLET: "E-Dompet",
+};

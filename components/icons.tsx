@@ -93,4 +93,14 @@ export const Icon = {
       <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M16 12h.01M3 9h18" />
     </svg>
   ),
+  student: (p: P) => (
+    <svg className={p.className ?? base} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 9L12 5 2 9l10 4 10-4z" /><path d="M6 10.5V16c0 1 2.5 3 6 3s6-2 6-3v-5.5" />
+    </svg>
+  ),
+  money: (p: P) => (
+    <svg className={p.className ?? base} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="6" width="20" height="12" rx="2" /><circle cx="12" cy="12" r="2.5" /><path d="M6 12h.01M18 12h.01" />
+    </svg>
+  ),
 };

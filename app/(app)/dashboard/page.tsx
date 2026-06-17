@@ -67,6 +67,19 @@ async function AdminDashboard({ today }: { today: string }) {
   const enrolled = prospectMap["ENROLLED"] || 0;
   const totalProspects = prospects.reduce((s, p) => s + p._count, 0);
 
+  // Statistik murid & yuran bulan ini
+  const month = today.slice(0, 7);
+  const [studentCount, invoiceAgg] = await Promise.all([
+    prisma.student.count({ where: { status: "ACTIVE" } }),
+    prisma.invoice.aggregate({
+      where: { month },
+      _sum: { amount: true, paidAmount: true },
+    }),
+  ]);
+  const billed = invoiceAgg._sum.amount ?? 0;
+  const collected = invoiceAgg._sum.paidAmount ?? 0;
+  const outstanding = billed - collected;
+
   // Kehadiran per cawangan
   const perBranch = await Promise.all(
     branches.map(async (b) => {
@@ -94,10 +107,17 @@ async function AdminDashboard({ today }: { today: string }) {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <StatCard label="Murid Aktif" value={studentCount} tone="indigo" href="/students" />
+        <StatCard label="Yuran Dikutip" value={`RM ${collected.toFixed(0)}`} hint={`bulan ${month}`} tone="green" href="/fees" />
+        <StatCard label="Yuran Tertunggak" value={`RM ${outstanding.toFixed(0)}`} hint="belum dijelaskan" tone="red" href="/fees" />
+        <StatCard label="Tugas Aktif" value={openTasks} tone="amber" href="/tasks" />
+      </div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Jumlah Prospek" value={totalProspects} tone="purple" href="/prospects" />
         <StatCard label="Berdaftar" value={enrolled} hint="prospek berjaya" tone="green" href="/prospects" />
         <StatCard label="Dalam Proses" value={(prospectMap["CONTACTED"] || 0) + (prospectMap["VISIT"] || 0) + (prospectMap["NEW"] || 0)} tone="amber" href="/prospects" />
-        <StatCard label="Tugas Aktif" value={openTasks} tone="red" href="/tasks" />
+        <StatCard label="Cuti Menunggu" value={pendingLeaves} hint="perlu kelulusan" tone="blue" href="/leave" />
       </div>
 
       <Card className="p-4">
@@ -178,7 +198,8 @@ function ProspectFunnel({ map }: { map: Record<string, number> }) {
 
 /* ---------------- Manager (Ketua Cawangan) ---------------- */
 async function ManagerDashboard({ branchId, today }: { branchId: string; today: string }) {
-  const [staff, present, pendingLeaves, prospects, tasks] = await Promise.all([
+  const month = today.slice(0, 7);
+  const [staff, present, pendingLeaves, prospects, tasks, students, invoiceAgg] = await Promise.all([
     prisma.user.count({ where: { branchId, active: true } }),
     prisma.attendance.count({ where: { branchId, date: today, clockInAt: { not: null } } }),
     prisma.leaveRequest.findMany({
@@ -193,14 +214,17 @@ async function ManagerDashboard({ branchId, today }: { branchId: string; today: 
       take: 5,
       orderBy: { dueDate: "asc" },
     }),
+    prisma.student.count({ where: { branchId, status: "ACTIVE" } }),
+    prisma.invoice.aggregate({ where: { branchId, month }, _sum: { amount: true, paidAmount: true } }),
   ]);
+  const outstanding = (invoiceAgg._sum.amount ?? 0) - (invoiceAgg._sum.paidAmount ?? 0);
 
   return (
     <>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatCard label="Pekerja Cawangan" value={staff} tone="blue" href="/staff" />
+        <StatCard label="Murid Aktif" value={students} tone="indigo" href="/students" />
+        <StatCard label="Yuran Tertunggak" value={`RM ${outstanding.toFixed(0)}`} hint="bulan ini" tone="red" href="/fees" />
         <StatCard label="Hadir Hari Ini" value={`${present}/${staff}`} tone="green" href="/attendance" />
-        <StatCard label="Cuti Menunggu" value={pendingLeaves.length} hint="perlu kelulusan" tone="amber" href="/leave" />
         <StatCard label="Prospek Aktif" value={prospects} tone="purple" href="/prospects" />
       </div>
 

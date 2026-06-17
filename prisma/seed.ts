@@ -18,6 +18,9 @@ async function main() {
   console.log("Menjana data seed...");
 
   // Bersih data sedia ada
+  await prisma.invoice.deleteMany();
+  await prisma.student.deleteMany();
+  await prisma.classRoom.deleteMany();
   await prisma.payslip.deleteMany();
   await prisma.overtime.deleteMany();
   await prisma.claim.deleteMany();
@@ -197,6 +200,77 @@ async function main() {
         status: i === 0 ? "APPROVED" : "PENDING",
       },
     });
+  }
+
+  // Kelas + murid + invois yuran bagi setiap cawangan (kecuali HQ)
+  const classTemplates = [
+    { name: "Playgroup", level: "2-3 tahun", fee: 250 },
+    { name: "Prasekolah 4 Tahun", level: "4 tahun", fee: 300 },
+    { name: "Prasekolah 5 Tahun", level: "5 tahun", fee: 320 },
+  ];
+  const childNames = ["Adam", "Aisyah", "Daniel", "Nur Iman", "Haziq", "Sofea", "Aqil", "Maryam", "Irfan", "Balqis"];
+  const parentNames = ["En. Zul", "Pn. Hana", "En. Rashid", "Pn. Yana", "En. Kamal", "Pn. Suri"];
+
+  const now = new Date();
+  const thisMonth = now.toISOString().slice(0, 7);
+  const prev = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const prevMonth = prev.toISOString().slice(0, 7);
+
+  for (let i = 1; i < branches.length; i++) {
+    const br = branches[i];
+    const branchStaff = await prisma.user.findMany({ where: { branchId: br.id, role: "STAFF" } });
+    const createdClasses = [];
+    for (const ct of classTemplates) {
+      const cls = await prisma.classRoom.create({
+        data: {
+          name: ct.name,
+          level: ct.level,
+          branchId: br.id,
+          teacherId: branchStaff[0]?.id ?? null,
+        },
+      });
+      createdClasses.push({ cls, fee: ct.fee });
+    }
+
+    // 6 murid setiap cawangan
+    for (let s = 0; s < 6; s++) {
+      const pick = createdClasses[s % createdClasses.length];
+      const enrollDate = `${now.getFullYear()}-01-05`;
+      const student = await prisma.student.create({
+        data: {
+          name: `${childNames[(i + s) % childNames.length]} bin/binti ${parentNames[s % parentNames.length].split(" ")[1]}`,
+          dob: `${now.getFullYear() - (3 + (s % 3))}-0${(s % 8) + 1}-15`,
+          gender: s % 2 === 0 ? "L" : "P",
+          parentName: parentNames[s % parentNames.length],
+          parentPhone: `0125${Math.floor(1000000 + Math.random() * 8000000)}`,
+          branchId: br.id,
+          classId: pick.cls.id,
+          enrollmentDate: enrollDate,
+          status: "ACTIVE",
+          monthlyFee: pick.fee,
+          registrationFee: 150,
+        },
+      });
+
+      // Invois bulan lepas (kebanyakan lunas) & bulan ini (campuran)
+      await prisma.invoice.create({
+        data: {
+          studentId: student.id, branchId: br.id, month: prevMonth,
+          amount: pick.fee, paidAmount: pick.fee, status: "PAID",
+          method: "TRANSFER", paidAt: prev, dueDate: `${prevMonth}-10`,
+        },
+      });
+      const paidNow = s % 3 === 0; // sebahagian belum bayar
+      await prisma.invoice.create({
+        data: {
+          studentId: student.id, branchId: br.id, month: thisMonth,
+          amount: pick.fee, paidAmount: paidNow ? pick.fee : 0,
+          status: paidNow ? "PAID" : "UNPAID",
+          method: paidNow ? "CASH" : null, paidAt: paidNow ? now : null,
+          dueDate: `${thisMonth}-10`,
+        },
+      });
+    }
   }
 
   // Pengumuman contoh

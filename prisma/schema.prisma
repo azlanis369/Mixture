@@ -26,6 +26,9 @@ model Branch {
   prospects     Prospect[]
   tasks         Task[]
   announcements Announcement[]
+  students      Student[]
+  classes       ClassRoom[]
+  invoices      Invoice[]
 }
 
 // Pengguna: pekerja tadika pelbagai jawatan
@@ -72,6 +75,7 @@ model User {
   overtimes        Overtime[]      @relation("OtRequester")
   otApprovals      Overtime[]      @relation("OtApprover")
   payslips         Payslip[]
+  taughtClasses    ClassRoom[]     @relation("ClassTeacher")
 }
 
 // Syif kerja (waktu masuk/keluar + rehat)
@@ -221,7 +225,68 @@ model Prospect {
   handledById   String?
   handledBy     User?    @relation("Handler", fields: [handledById], references: [id])
   lastContactAt DateTime?
+  converted     Boolean  @default(false) // sudah ditukar ke murid?
   createdAt     DateTime @default(now())
+}
+
+// Kelas / darjah dalam tadika
+model ClassRoom {
+  id        String   @id @default(cuid())
+  name      String   // cth: Prasekolah 5 Tahun, Playgroup
+  level     String?  // cth: 4 tahun, 5 tahun
+  capacity  Int      @default(25)
+  branchId  String?
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+  teacherId String?
+  teacher   User?    @relation("ClassTeacher", fields: [teacherId], references: [id])
+  createdAt DateTime @default(now())
+
+  students  Student[]
+}
+
+// Murid berdaftar
+model Student {
+  id              String   @id @default(cuid())
+  name            String
+  dob             String?  // YYYY-MM-DD
+  gender          String?  // L | P
+  parentName      String
+  parentPhone     String
+  parentEmail     String?
+  address         String?
+  branchId        String?
+  branch          Branch?  @relation(fields: [branchId], references: [id])
+  classId         String?
+  classRoom       ClassRoom? @relation(fields: [classId], references: [id])
+  enrollmentDate  String   // YYYY-MM-DD
+  status          String   @default("ACTIVE") // ACTIVE | GRADUATED | WITHDRAWN
+  monthlyFee      Float    @default(0) // yuran bulanan
+  registrationFee Float    @default(0) // yuran pendaftaran
+  notes           String?
+  createdAt       DateTime @default(now())
+
+  invoices Invoice[]
+}
+
+// Invois yuran bulanan murid
+model Invoice {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id])
+  branchId    String?
+  branch      Branch?  @relation(fields: [branchId], references: [id])
+  month       String   // YYYY-MM
+  description String   @default("Yuran Bulanan")
+  amount      Float
+  paidAmount  Float    @default(0)
+  status      String   @default("UNPAID") // UNPAID | PARTIAL | PAID
+  dueDate     String
+  method      String?  // CASH | TRANSFER | EWALLET
+  paidAt      DateTime?
+  note        String?
+  createdAt   DateTime @default(now())
+
+  @@unique([studentId, month])
 }
 
 // Pengumuman / notis (Telegram untuk program & mesyuarat, WhatsApp umum)

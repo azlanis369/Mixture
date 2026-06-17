@@ -4,6 +4,7 @@ import { formatDateMY } from "@/lib/date";
 import { ADMIN_ROLES, PROSPECT_STATUS, PROSPECT_SOURCE } from "@/lib/constants";
 import { Card, SectionTitle, Badge, EmptyState, Button } from "@/components/ui";
 import { ProspectForm } from "@/components/prospect-form";
+import { ProspectConvert } from "@/components/prospect-convert";
 import { updateProspectStatusAction } from "@/lib/actions/prospect";
 import { Icon } from "@/components/icons";
 
@@ -128,6 +129,10 @@ export default async function ProspectsPage() {
                       </Button>
                     </form>
                   )}
+                  {!isAdmin && p.status === "ENROLLED" && !p.converted && (
+                    <ProspectConvert prospectId={p.id} />
+                  )}
+                  {p.converted && <Badge tone="green">Sudah jadi murid</Badge>}
                 </div>
               </div>
             ))}
