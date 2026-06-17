@@ -271,6 +271,30 @@ async function main() {
         },
       });
     }
+
+    // Aktiviti contoh (gambar = SVG data URL warna)
+    const colors = ["#6366f1", "#10b981", "#f59e0b"];
+    const acts = [
+      { title: "Aktiviti Seni & Kraf", caption: "Murid belajar mewarna dan menggunting hari ini." },
+      { title: "Masa Bercerita", caption: "Sesi membaca buku cerita beramai-ramai." },
+      { title: "Sukaneka Mini", caption: "Aktiviti fizikal di kawasan permainan tadika." },
+    ];
+    for (let a = 0; a < acts.length; a++) {
+      const c = colors[a % colors.length];
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='260'><rect width='400' height='260' fill='${c}'/><text x='50%' y='50%' fill='white' font-size='22' font-family='sans-serif' text-anchor='middle' dy='.3em'>${acts[a].title}</text></svg>`;
+      const dataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+      await prisma.activity.create({
+        data: {
+          title: acts[a].title,
+          caption: acts[a].caption,
+          photo: dataUrl,
+          date: thisMonth + "-" + String(((a * 3) % 27) + 1).padStart(2, "0"),
+          branchId: br.id,
+          classId: createdClasses[a % createdClasses.length].cls.id,
+          authorId: branchStaff[0]?.id ?? null,
+        },
+      });
+    }
   }
 
   // Pengumuman contoh

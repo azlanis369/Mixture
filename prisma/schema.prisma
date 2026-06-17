@@ -30,6 +30,7 @@ model Branch {
   classes           ClassRoom[]
   invoices          Invoice[]
   studentAttendances StudentAttendance[]
+  activities        Activity[]
 }
 
 // Pengguna: pekerja tadika pelbagai jawatan
@@ -242,7 +243,23 @@ model ClassRoom {
   teacher   User?    @relation("ClassTeacher", fields: [teacherId], references: [id])
   createdAt DateTime @default(now())
 
-  students  Student[]
+  students   Student[]
+  activities Activity[]
+}
+
+// Galeri aktiviti murid (guru muat naik gambar, ibu bapa nampak perkembangan)
+model Activity {
+  id          String   @id @default(cuid())
+  title       String
+  caption     String?
+  photo       String   // data URL gambar
+  date        String   // YYYY-MM-DD
+  branchId    String?
+  branch      Branch?  @relation(fields: [branchId], references: [id])
+  classId     String?
+  classRoom   ClassRoom? @relation(fields: [classId], references: [id])
+  authorId    String?
+  createdAt   DateTime @default(now())
 }
 
 // Murid berdaftar
@@ -264,6 +281,7 @@ model Student {
   monthlyFee      Float    @default(0) // yuran bulanan
   registrationFee Float    @default(0) // yuran pendaftaran
   notes           String?
+  accessToken     String   @unique @default(cuid()) // pautan portal ibu bapa
   createdAt       DateTime @default(now())
 
   invoices    Invoice[]
