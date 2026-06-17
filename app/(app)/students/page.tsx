@@ -5,6 +5,7 @@ import { formatDateMY } from "@/lib/date";
 import { ADMIN_ROLES, MANAGER_ROLES, STUDENT_STATUS, GENDER_LABEL } from "@/lib/constants";
 import { Card, SectionTitle, Badge, EmptyState, Button, StatCard } from "@/components/ui";
 import { StudentForm } from "@/components/student-form";
+import { ParentLink } from "@/components/parent-link";
 import { updateStudentStatusAction } from "@/lib/actions/student";
 
 function statusTone(s: string) {
@@ -76,9 +77,12 @@ export default async function StudentsPage() {
                     Ibu bapa: {s.parentName} ({s.parentPhone})
                   </div>
                 </div>
-                <div className="text-right shrink-0">
+                <div className="text-right shrink-0 space-y-1.5">
                   <div className="text-sm font-semibold text-slate-700">RM {s.monthlyFee.toFixed(0)}<span className="text-[11px] font-normal text-slate-400">/bln</span></div>
                   <Badge tone={statusTone(s.status)}>{STUDENT_STATUS[s.status]}</Badge>
+                  <div className="hidden sm:block">
+                    <ParentLink token={s.accessToken} parentName={s.parentName} parentPhone={s.parentPhone} studentName={s.name} />
+                  </div>
                 </div>
               </div>
             ))}
