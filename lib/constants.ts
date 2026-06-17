@@ -83,3 +83,31 @@ export const ANNOUNCE_CATEGORY: Record<string, string> = {
   NOTICE: "Notis",
   GENERAL: "Umum",
 };
+
+export const CLAIM_TYPES: Record<string, string> = {
+  MEDICAL: "Perubatan",
+  MILEAGE: "Batuan / Mileage",
+  EXPENSE: "Perbelanjaan",
+  OTHER: "Lain-lain",
+};
+
+export const CLAIM_STATUS: Record<string, string> = {
+  PENDING: "Menunggu",
+  APPROVED: "Diluluskan",
+  REJECTED: "Ditolak",
+  PAID: "Telah Dibayar",
+};
+
+export const OT_STATUS: Record<string, string> = {
+  PENDING: "Menunggu",
+  APPROVED: "Diluluskan",
+  REJECTED: "Ditolak",
+};
+
+export const PAYSLIP_STATUS: Record<string, string> = {
+  DRAFT: "Draf",
+  FINALIZED: "Dimuktamadkan",
+};
+
+// Kadar batuan (RM sekilometer) — boleh dikonfigurasi
+export const MILEAGE_RATE = 0.6;

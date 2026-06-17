@@ -44,6 +44,22 @@ model User {
   branch       Branch?  @relation(fields: [branchId], references: [id])
   createdAt    DateTime @default(now())
 
+  // Kelayakan cuti tahunan (hari) ikut jenis
+  annualQuota    Int     @default(14)
+  medicalQuota   Int     @default(14)
+  emergencyQuota Int     @default(7)
+
+  // Maklumat gaji & berkanun (untuk payroll)
+  basicSalary  Float   @default(0)
+  allowance    Float   @default(0) // elaun tetap bulanan
+  epfNo        String?
+  socsoNo      String?
+  taxNo        String?
+
+  // Syif kerja
+  shiftId      String?
+  shift        Shift?  @relation(fields: [shiftId], references: [id])
+
   attendances      Attendance[]
   leaveRequests    LeaveRequest[]  @relation("Requester")
   approvals        LeaveRequest[]  @relation("Approver")
@@ -51,6 +67,83 @@ model User {
   createdTasks     Task[]          @relation("Creator")
   prospects        Prospect[]      @relation("Handler")
   announcements    Announcement[]
+  claims           Claim[]         @relation("Claimant")
+  claimApprovals   Claim[]         @relation("ClaimApprover")
+  overtimes        Overtime[]      @relation("OtRequester")
+  otApprovals      Overtime[]      @relation("OtApprover")
+  payslips         Payslip[]
+}
+
+// Syif kerja (waktu masuk/keluar + rehat)
+model Shift {
+  id           String   @id @default(cuid())
+  name         String
+  startTime    String   // HH:MM
+  endTime      String   // HH:MM
+  breakMinutes Int      @default(60)
+  branchId     String?
+  createdAt    DateTime @default(now())
+
+  users User[]
+}
+
+// Tuntutan (perubatan, batuan/mileage, perbelanjaan, lain-lain)
+model Claim {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation("Claimant", fields: [userId], references: [id])
+  type         String   // MEDICAL | MILEAGE | EXPENSE | OTHER
+  title        String
+  amount       Float    // jumlah RM (untuk mileage = km * kadar)
+  distanceKm   Float?   // jika mileage
+  claimDate    String   // YYYY-MM-DD
+  receiptPhoto String?  // data URL resit
+  status       String   @default("PENDING") // PENDING | APPROVED | REJECTED | PAID
+  approverId   String?
+  approver     User?    @relation("ClaimApprover", fields: [approverId], references: [id])
+  reviewNote   String?
+  createdAt    DateTime @default(now())
+}
+
+// Permohonan kerja lebih masa (overtime)
+model Overtime {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation("OtRequester", fields: [userId], references: [id])
+  date       String   // YYYY-MM-DD
+  hours      Float
+  rate       Float    @default(1.5) // pengganda kadar (1.5x biasa, 2x cuti umum)
+  reason     String
+  status     String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  approverId String?
+  approver   User?    @relation("OtApprover", fields: [approverId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+// Slip gaji bulanan dengan potongan berkanun Malaysia
+model Payslip {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  month         String   // YYYY-MM
+  basicSalary   Float
+  allowance     Float    @default(0)
+  overtimePay   Float    @default(0)
+  claimsTotal   Float    @default(0)
+  grossPay      Float
+  epfEmployee   Float    @default(0)
+  epfEmployer   Float    @default(0)
+  socsoEmployee Float    @default(0)
+  socsoEmployer Float    @default(0)
+  eisEmployee   Float    @default(0)
+  eisEmployer   Float    @default(0)
+  pcb           Float    @default(0) // potongan cukai berjadual (LHDN)
+  netPay        Float
+  status        String   @default("DRAFT") // DRAFT | FINALIZED
+  generatedById String?
+  createdAt     DateTime @default(now())
+
+  @@unique([userId, month])
 }
 
 // Sistem punch card harian (clock in / clock out) dengan lokasi + gambar

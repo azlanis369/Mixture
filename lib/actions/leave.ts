@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { MANAGER_ROLES } from "@/lib/constants";
+import { canApproveLeave } from "@/lib/leave-balance";
 
 export async function applyLeaveAction(formData: FormData) {
   const user = await getCurrentUser();
@@ -38,8 +39,31 @@ export async function reviewLeaveAction(formData: FormData) {
 
   const id = String(formData.get("id") || "");
   const decision = String(formData.get("decision") || "");
-  const note = String(formData.get("note") || "") || null;
+  let note = String(formData.get("note") || "") || null;
   if (!id || !["APPROVED", "REJECTED"].includes(decision)) return;
+
+  const leave = await prisma.leaveRequest.findUnique({ where: { id } });
+  if (!leave) return;
+
+  // Semak baki kuota sebelum lulus (kecuali EARLY_LEAVE / UNPAID)
+  if (decision === "APPROVED") {
+    const check = await canApproveLeave(
+      leave.userId,
+      leave.type,
+      leave.startDate,
+      leave.endDate
+    );
+    if (!check.ok) {
+      note = `Baki tidak mencukupi (perlu ${check.needed} hari, baki ${check.remaining} hari).`;
+      await prisma.leaveRequest.update({
+        where: { id },
+        data: { status: "REJECTED", approverId: user.id, reviewNote: note },
+      });
+      revalidatePath("/leave");
+      revalidatePath("/dashboard");
+      return;
+    }
+  }
 
   await prisma.leaveRequest.update({
     where: { id },

@@ -78,4 +78,19 @@ export const Icon = {
       <path d="M12 5v14M5 12h14" />
     </svg>
   ),
+  receipt: (p: P) => (
+    <svg className={p.className ?? base} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1V2l-2 1-2-1-2 1-2-1-2 1-2-1z" /><path d="M8 7h8M8 11h8M8 15h5" />
+    </svg>
+  ),
+  timer: (p: P) => (
+    <svg className={p.className ?? base} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="13" r="8" /><path d="M12 13V9M9 2h6M5 6l1.5 1.5" />
+    </svg>
+  ),
+  wallet: (p: P) => (
+    <svg className={p.className ?? base} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M16 12h.01M3 9h18" />
+    </svg>
+  ),
 };

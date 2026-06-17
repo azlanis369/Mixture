@@ -37,11 +37,34 @@ export async function createStaffAction(formData: FormData) {
       role,
       position: String(formData.get("position") || "") || null,
       branchId,
+      basicSalary: Number(formData.get("basicSalary") || 0),
+      allowance: Number(formData.get("allowance") || 0),
+      shiftId: String(formData.get("shiftId") || "") || null,
     },
   });
 
   revalidatePath("/staff");
   return { ok: true };
+}
+
+// Cipta syif kerja baru (admin sahaja)
+export async function createShiftAction(formData: FormData) {
+  const actor = await getCurrentUser();
+  if (!actor || !ADMIN_ROLES.includes(actor.role)) return;
+  const name = String(formData.get("name") || "").trim();
+  const startTime = String(formData.get("startTime") || "");
+  const endTime = String(formData.get("endTime") || "");
+  if (!name || !startTime || !endTime) return;
+
+  await prisma.shift.create({
+    data: {
+      name,
+      startTime,
+      endTime,
+      breakMinutes: Number(formData.get("breakMinutes") || 60),
+    },
+  });
+  revalidatePath("/staff");
 }
 
 export async function toggleStaffActiveAction(formData: FormData) {

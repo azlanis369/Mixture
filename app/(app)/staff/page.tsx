@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { ADMIN_ROLES, MANAGER_ROLES, ROLE_LABEL } from "@/lib/constants";
 import { Card, SectionTitle, Badge, EmptyState, Button } from "@/components/ui";
 import { StaffForm } from "@/components/staff-form";
+import { ShiftManager } from "@/components/shift-manager";
 import { toggleStaffActiveAction } from "@/lib/actions/staff";
 
 function roleTone(r: string) {
@@ -20,13 +21,14 @@ export default async function StaffPage() {
   if (!MANAGER_ROLES.includes(user.role)) redirect("/dashboard");
   const isAdmin = ADMIN_ROLES.includes(user.role);
 
-  const [staff, branches] = await Promise.all([
+  const [staff, branches, shifts] = await Promise.all([
     prisma.user.findMany({
       where: isAdmin ? {} : { branchId: user.branchId },
-      include: { branch: true },
+      include: { branch: true, shift: true },
       orderBy: [{ role: "asc" }, { name: "asc" }],
     }),
     prisma.branch.findMany({ orderBy: { isHQ: "desc" } }),
+    prisma.shift.findMany({ orderBy: { startTime: "asc" } }),
   ]);
 
   return (
@@ -40,8 +42,10 @@ export default async function StaffPage() {
       </div>
 
       <Card className="p-5">
-        <StaffForm isAdmin={isAdmin} branches={branches} />
+        <StaffForm isAdmin={isAdmin} branches={branches} shifts={shifts} />
       </Card>
+
+      {isAdmin && <ShiftManager shifts={shifts} />}
 
       <Card className="p-4">
         <SectionTitle title="Senarai Pekerja" />
@@ -55,6 +59,8 @@ export default async function StaffPage() {
                   <th className="py-2 font-medium">Nama</th>
                   <th className="py-2 font-medium">Jawatan</th>
                   {isAdmin && <th className="py-2 font-medium">Cawangan</th>}
+                  <th className="py-2 font-medium">Syif</th>
+                  {isAdmin && <th className="py-2 font-medium text-right">Gaji Asas</th>}
                   <th className="py-2 font-medium">Peranan</th>
                   <th className="py-2 font-medium">Status</th>
                   <th className="py-2 font-medium"></th>
@@ -69,6 +75,14 @@ export default async function StaffPage() {
                     </td>
                     <td className="py-2.5 text-slate-600">{s.position || "-"}</td>
                     {isAdmin && <td className="py-2.5 text-slate-500">{s.branch?.code}</td>}
+                    <td className="py-2.5 text-slate-500">
+                      {s.shift ? `${s.shift.startTime}-${s.shift.endTime}` : "-"}
+                    </td>
+                    {isAdmin && (
+                      <td className="py-2.5 text-right text-slate-600 tabular-nums">
+                        {s.basicSalary > 0 ? `RM ${s.basicSalary.toFixed(0)}` : "-"}
+                      </td>
+                    )}
                     <td className="py-2.5">
                       <Badge tone={roleTone(s.role)}>{ROLE_LABEL[s.role]}</Badge>
                     </td>

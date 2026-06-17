@@ -18,12 +18,16 @@ async function main() {
   console.log("Menjana data seed...");
 
   // Bersih data sedia ada
+  await prisma.payslip.deleteMany();
+  await prisma.overtime.deleteMany();
+  await prisma.claim.deleteMany();
   await prisma.announcement.deleteMany();
   await prisma.prospect.deleteMany();
   await prisma.task.deleteMany();
   await prisma.leaveRequest.deleteMany();
   await prisma.attendance.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.shift.deleteMany();
   await prisma.branch.deleteMany();
 
   const branches = [];
@@ -45,12 +49,20 @@ async function main() {
   const hq = branches[0];
   const pass = await bcrypt.hash("password123", 10);
 
+  // Syif kerja
+  const shiftPagi = await prisma.shift.create({
+    data: { name: "Syif Pagi", startTime: "07:30", endTime: "16:30", breakMinutes: 60 },
+  });
+  const shiftPetang = await prisma.shift.create({
+    data: { name: "Syif Petang", startTime: "10:00", endTime: "19:00", breakMinutes: 60 },
+  });
+
   // Super Admin + Admin HQ
   await prisma.user.create({
-    data: { name: "Pn. Aishah (Pemilik)", email: "admin@mixture.my", phone: "0121111111", passwordHash: pass, role: "SUPER_ADMIN", position: "Pemilik / Pengarah", branchId: hq.id },
+    data: { name: "Pn. Aishah (Pemilik)", email: "admin@mixture.my", phone: "0121111111", passwordHash: pass, role: "SUPER_ADMIN", position: "Pemilik / Pengarah", branchId: hq.id, basicSalary: 12000, allowance: 1500, shiftId: shiftPagi.id },
   });
   await prisma.user.create({
-    data: { name: "En. Faiz (Admin HQ)", email: "hq@mixture.my", phone: "0122222222", passwordHash: pass, role: "ADMIN", position: "Admin HQ", branchId: hq.id },
+    data: { name: "En. Faiz (Admin HQ)", email: "hq@mixture.my", phone: "0122222222", passwordHash: pass, role: "ADMIN", position: "Admin HQ", branchId: hq.id, basicSalary: 5500, allowance: 600, shiftId: shiftPagi.id },
   });
 
   // Ketua Cawangan untuk setiap branch (kecuali HQ)
@@ -68,6 +80,9 @@ async function main() {
         role: "HEAD_OF_BRANCH",
         position: "Ketua Cawangan",
         branchId: br.id,
+        basicSalary: 3800,
+        allowance: 500,
+        shiftId: shiftPagi.id,
       },
     });
     heads.push(head);
@@ -83,6 +98,9 @@ async function main() {
           role: "STAFF",
           position: staffPositions[j % staffPositions.length],
           branchId: br.id,
+          basicSalary: 1800 + j * 200,
+          allowance: 200,
+          shiftId: j % 2 === 0 ? shiftPagi.id : shiftPetang.id,
         },
       });
     }
@@ -131,6 +149,54 @@ async function main() {
         },
       });
     }
+  }
+
+  // Contoh permohonan cuti (untuk paparan baki)
+  const someStaff = await prisma.user.findMany({ where: { role: "STAFF" }, take: 4 });
+  const yr = new Date().getFullYear();
+  for (let i = 0; i < someStaff.length; i++) {
+    const s = someStaff[i];
+    await prisma.leaveRequest.create({
+      data: {
+        userId: s.id,
+        type: ["ANNUAL", "MEDICAL", "EMERGENCY", "ANNUAL"][i],
+        startDate: `${yr}-0${(i % 8) + 1}-10`,
+        endDate: `${yr}-0${(i % 8) + 1}-${i === 0 ? 12 : 10}`,
+        reason: "Urusan peribadi.",
+        status: i < 2 ? "APPROVED" : "PENDING",
+      },
+    });
+  }
+
+  // Contoh tuntutan
+  for (let i = 0; i < someStaff.length; i++) {
+    const s = someStaff[i];
+    await prisma.claim.create({
+      data: {
+        userId: s.id,
+        type: ["MEDICAL", "MILEAGE", "EXPENSE", "MEDICAL"][i],
+        title: ["Klinik panel", "Perjalanan ke HQ (mesyuarat)", "Bahan kelas seni", "Ubat batuk"][i],
+        amount: [85, 36, 120, 25][i],
+        distanceKm: i === 1 ? 60 : null,
+        claimDate: `${yr}-0${(i % 8) + 1}-15`,
+        status: i === 0 ? "APPROVED" : "PENDING",
+      },
+    });
+  }
+
+  // Contoh lebih masa
+  for (let i = 0; i < someStaff.length; i++) {
+    const s = someStaff[i];
+    await prisma.overtime.create({
+      data: {
+        userId: s.id,
+        date: `${yr}-0${(i % 8) + 1}-20`,
+        hours: [2, 3, 1.5, 2][i],
+        rate: 1.5,
+        reason: "Persediaan majlis hari keluarga tadika.",
+        status: i === 0 ? "APPROVED" : "PENDING",
+      },
+    });
   }
 
   // Pengumuman contoh

@@ -5,6 +5,7 @@ import { ADMIN_ROLES, MANAGER_ROLES, LEAVE_TYPES, LEAVE_STATUS } from "@/lib/con
 import { Card, SectionTitle, Badge, EmptyState, Button } from "@/components/ui";
 import { LeaveForm } from "@/components/leave-form";
 import { reviewLeaveAction } from "@/lib/actions/leave";
+import { getLeaveBalances } from "@/lib/leave-balance";
 
 function statusTone(s: string) {
   return s === "APPROVED" ? "green" : s === "REJECTED" ? "red" : "amber";
@@ -21,6 +22,8 @@ export default async function LeavePage() {
     orderBy: { createdAt: "desc" },
     include: { approver: true },
   });
+
+  const balances = await getLeaveBalances(user.id);
 
   const pending = isManager
     ? await prisma.leaveRequest.findMany({
@@ -43,6 +46,25 @@ export default async function LeavePage() {
             Mohon cuti awal, kecemasan & lain-lain.
           </p>
         </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        {balances.map((b) => (
+          <Card key={b.type} className="p-4">
+            <div className="text-xs text-slate-500">{LEAVE_TYPES[b.type]}</div>
+            <div className="text-2xl font-bold text-slate-800 mt-1">
+              {b.remaining}
+              <span className="text-sm font-normal text-slate-400"> / {b.quota} hari</span>
+            </div>
+            <div className="mt-2 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-indigo-500 rounded-full"
+                style={{ width: `${b.quota ? (b.used / b.quota) * 100 : 0}%` }}
+              />
+            </div>
+            <div className="text-[11px] text-slate-400 mt-1">{b.used} hari digunakan</div>
+          </Card>
+        ))}
       </div>
 
       <Card className="p-5">

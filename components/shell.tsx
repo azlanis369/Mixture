@@ -18,6 +18,9 @@ const NAV: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: "dashboard" },
   { href: "/attendance", label: "Kehadiran", icon: "clock" },
   { href: "/leave", label: "Cuti", icon: "calendar" },
+  { href: "/claims", label: "Tuntutan", icon: "receipt" },
+  { href: "/overtime", label: "Lebih Masa", icon: "timer" },
+  { href: "/payroll", label: "Gaji", icon: "wallet" },
   { href: "/tasks", label: "Tugas", icon: "task" },
   { href: "/prospects", label: "Prospek", icon: "target", roles: MANAGER_ROLES },
   { href: "/announcements", label: "Pengumuman", icon: "megaphone" },
@@ -125,7 +128,7 @@ export function Shell({
       {/* Bottom nav (mobile) */}
       <nav className="lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-20">
         <div className="flex overflow-x-auto no-scrollbar">
-          {items.slice(0, 5).map((n) => {
+          {items.map((n) => {
             const I = Icon[n.icon];
             const active = isActive(n.href);
             return (
