@@ -60,3 +60,13 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Funnel bars grow in from 0 once their Reveal wrapper becomes visible */
+.funnel-bar {
+  width: 0%;
+  transition: width 0.9s ease 0.2s;
+}
+
+.reveal.is-visible .funnel-bar {
+  width: var(--target-w);
+}

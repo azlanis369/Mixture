@@ -1,9 +1,20 @@
+import {
+  IconBot,
+  IconCaption,
+  IconChart,
+  IconFollowUp,
+  IconInbox,
+  IconListing,
+  IconProfile,
+} from "@/components/icons";
 import Reveal from "@/components/Reveal";
+import type { ComponentType } from "react";
 
 type Module = {
   name: string;
   status: "Live" | "Draft/Beta";
   body: string;
+  icon: ComponentType<{ className?: string }>;
 };
 
 // G1: every module shown here must exist in the beta build.
@@ -13,36 +24,43 @@ const modules: Module[] = [
     name: "Public Profile",
     status: "Live",
     body: "Profile premium boleh dikongsi via QR atau link.",
+    icon: IconProfile,
   },
   {
     name: "Listing Manager",
     status: "Live",
     body: "Susun listing dan media ikut unit, bukan bertaburan dalam gallery.",
+    icon: IconListing,
   },
   {
     name: "Lead Inbox",
     status: "Live",
     body: "Semua lead direkod dalam satu skrin — nama, sumber, listing.",
+    icon: IconInbox,
   },
   {
     name: "Follow-up Tracker",
     status: "Live",
     body: "Next action jelas untuk setiap lead, tak hilang dalam chat.",
+    icon: IconFollowUp,
   },
   {
     name: "Caption Studio",
     status: "Draft/Beta",
     body: "Jana caption WA/Telegram/FB dari satu sumber. Anda semak & hantar sendiri.",
+    icon: IconCaption,
   },
   {
     name: "Autobot",
     status: "Draft/Beta",
     body: "Bantu draf respons automatik. Tiada auto-posting portal atau WA Business API rasmi dalam v1.0.",
+    icon: IconBot,
   },
   {
     name: "SWOT Intelligence",
     status: "Live",
     body: "Lihat funnel Views → Shares → Leads → Booked → Closed dari data sebenar anda.",
+    icon: IconChart,
   },
 ];
 
@@ -60,29 +78,35 @@ export default function AppHub() {
           </p>
         </Reveal>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {modules.map((module, index) => (
-            <Reveal key={module.name} delayMs={(index % 3) * 100}>
-              <div className="h-full rounded-2xl border border-white/10 bg-ink-2/60 p-6">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-display text-base font-semibold text-on-dark">
+          {modules.map((module, index) => {
+            const Icon = module.icon;
+            return (
+              <Reveal key={module.name} delayMs={(index % 3) * 100}>
+                <div className="group h-full rounded-2xl border border-white/10 bg-gradient-to-b from-ink-2/80 to-ink-2/40 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-emerald/40 hover:shadow-xl hover:shadow-emerald/10">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald/15 text-emerald-soft transition-colors group-hover:bg-emerald/25">
+                      <Icon />
+                    </span>
+                    <span
+                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${
+                        module.status === "Live"
+                          ? "bg-emerald/20 text-emerald-soft"
+                          : "bg-gold/20 text-gold"
+                      }`}
+                    >
+                      {module.status}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 font-display text-base font-semibold text-on-dark">
                     {module.name}
                   </h3>
-                  <span
-                    className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${
-                      module.status === "Live"
-                        ? "bg-emerald/20 text-emerald-soft"
-                        : "bg-gold/20 text-gold"
-                    }`}
-                  >
-                    {module.status}
-                  </span>
+                  <p className="mt-2 text-sm leading-relaxed text-on-dark-muted">
+                    {module.body}
+                  </p>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-on-dark-muted">
-                  {module.body}
-                </p>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
