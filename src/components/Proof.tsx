@@ -20,7 +20,7 @@ const funnel = [
 
 export default function Proof() {
   return (
-    <section id="proof" className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
+    <section id="proof" className="section-elevated bg-ink-2 px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-4xl">
         <Reveal className="mb-10 text-center">
           <h2 className="font-display text-3xl font-bold text-on-dark sm:text-4xl">

@@ -87,7 +87,7 @@ const modules: Module[] = [
 
 export default function AppHub() {
   return (
-    <section id="app-hub" className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
+    <section id="app-hub" className="section-elevated bg-ink-2 px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-5xl">
         <Reveal className="mb-12 text-center">
           <h2 className="font-display text-3xl font-bold text-on-dark sm:text-4xl">

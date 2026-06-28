@@ -34,7 +34,7 @@ const faqs = [
 
 export default function Faq() {
   return (
-    <section id="faq" className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
+    <section id="faq" className="section-elevated bg-ink-2 px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-2xl">
         <Reveal className="mb-10 text-center">
           <h2 className="font-display text-3xl font-bold text-on-dark sm:text-4xl">
