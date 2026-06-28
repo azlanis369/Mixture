@@ -1,5 +1,5 @@
 import Reveal from "@/components/Reveal";
-import { whatsappLink } from "@/lib/site-config";
+import WhatsAppCta from "@/components/WhatsAppCta";
 
 const exclusions = [
   "Auto-posting portal rasmi",
@@ -35,14 +35,13 @@ export default function Pricing() {
             <p className="mt-4 text-sm font-semibold text-gold">
               Harga founding — akan naik selepas pelancaran v1.0 penuh.
             </p>
-            <a
-              href={whatsappLink()}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsAppCta
+              source="pricing"
+              checkoutIntent
               className="mt-6 inline-block rounded-full bg-emerald px-6 py-3 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40"
             >
               Minta Akses Demo
-            </a>
+            </WhatsAppCta>
             <div className="mt-8 border-t border-white/10 pt-6 text-left">
               <p className="text-xs font-semibold uppercase tracking-wide text-on-dark-muted">
                 Tidak termasuk v1.0
