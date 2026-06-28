@@ -2,8 +2,12 @@ import Reveal from "@/components/Reveal";
 
 export default function OriginStory() {
   return (
-    <section id="origin" className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
-      <div className="mx-auto max-w-3xl text-center">
+    <section id="origin" className="relative overflow-hidden bg-ink px-5 py-20 sm:px-8 sm:py-28">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-40 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full bg-emerald/8 blur-[120px]"
+      />
+      <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
           <p className="font-display text-sm font-semibold uppercase tracking-wide text-emerald-soft">
             Dibina oleh REN, untuk REN.

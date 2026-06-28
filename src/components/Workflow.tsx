@@ -49,8 +49,12 @@ const steps = [
 
 export default function Workflow() {
   return (
-    <section id="workflow" className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
-      <div className="mx-auto max-w-5xl">
+    <section id="workflow" className="relative overflow-hidden bg-ink px-5 py-20 sm:px-8 sm:py-28">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-24 top-20 h-64 w-64 rounded-full bg-emerald/8 blur-[120px]"
+      />
+      <div className="relative mx-auto max-w-5xl">
         <Reveal className="mb-12 text-center">
           <h2 className="font-display text-3xl font-bold text-on-dark sm:text-4xl">
             Macam mana ia berfungsi

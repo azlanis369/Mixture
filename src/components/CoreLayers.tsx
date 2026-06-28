@@ -20,8 +20,12 @@ const layers = [
 
 export default function CoreLayers() {
   return (
-    <section id="layers" className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
-      <div className="mx-auto max-w-5xl">
+    <section id="layers" className="relative overflow-hidden bg-ink px-5 py-20 sm:px-8 sm:py-28">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -left-32 top-1/3 h-72 w-72 rounded-full bg-emerald/8 blur-[120px]"
+      />
+      <div className="relative mx-auto max-w-5xl">
         <Reveal className="mb-12 text-center">
           <h2 className="font-display text-3xl font-bold text-on-dark sm:text-4xl">
             Dua layer, satu flow

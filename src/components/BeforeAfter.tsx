@@ -69,7 +69,7 @@ function SceneRow({ scene, index }: { scene: Scene; index: number }) {
 
 export default function BeforeAfter() {
   return (
-    <section className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
+    <section className="section-elevated bg-ink-2 px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-4xl space-y-10">
         {scenes.map((scene, index) => (
           <SceneRow key={scene.label} scene={scene} index={index} />

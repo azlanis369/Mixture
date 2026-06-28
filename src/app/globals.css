@@ -70,3 +70,13 @@ body {
 .reveal.is-visible .funnel-bar {
   width: var(--target-w);
 }
+
+/* Elevated sections get a thin emerald gradient top-edge */
+.section-elevated {
+  border-top: 1px solid rgba(14, 124, 90, 0.15);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(14, 124, 90, 0.04) 0%,
+    transparent 40%
+  );
+}
