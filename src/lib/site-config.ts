@@ -1,6 +1,4 @@
-// TODO(azlan): replace with the real Super Ren Group WhatsApp number before launch.
-// Format: country code + number, no symbols (e.g. "60123456789").
-export const WHATSAPP_NUMBER = "60123456789";
+export const WHATSAPP_NUMBER = "60105013699";
 export const WHATSAPP_DEMO_MESSAGE =
   "Hi, saya nak minta demo RENFlow Plus (Early Access).";
 
