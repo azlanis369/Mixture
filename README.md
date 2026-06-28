@@ -12,7 +12,7 @@ npm run dev
 ## Notes
 
 - Copy and section structure follow `RENFLOW PLUS — CODEX BUILD SPEC v2`.
-- `src/lib/site-config.ts` holds the real Super Ren Group WhatsApp number
+- `src/lib/site-config.ts` holds the real superREN.group CRM Pro WhatsApp number
   used by every CTA (via the shared `WhatsAppCta` component, which also
   fires the analytics events documented below).
 - Ad pixel tracking (`src/components/AdPixels.tsx`, `src/lib/analytics.ts`)

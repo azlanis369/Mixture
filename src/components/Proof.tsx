@@ -78,8 +78,8 @@ export default function Proof() {
         </Reveal>
 
         <p className="mt-6 text-center text-xs text-on-dark-muted">
-          Paparan menggunakan data sistem sebenar dari deployment Super Ren
-          Group. Akaun anda bermula kosong.
+          Paparan menggunakan data sistem sebenar dari deployment
+          superREN.group CRM Pro. Akaun anda bermula kosong.
         </p>
       </div>
     </section>

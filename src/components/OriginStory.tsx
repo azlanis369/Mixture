@@ -20,7 +20,7 @@ export default function OriginStory() {
             RENFlow Plus.
           </p>
           <p className="mt-6 text-sm text-on-dark-muted">
-            Azlan Zakaria · Pembina RENFlow Plus &amp; Super Ren Group
+            Azlan Zakaria · Pembina Sistem &amp; Webpage — superREN.group CRM Pro
           </p>
         </Reveal>
       </div>
