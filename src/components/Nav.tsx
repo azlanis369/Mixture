@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { whatsappLink } from "@/lib/site-config";
+import WhatsAppCta from "@/components/WhatsAppCta";
 
 const links = [
   { href: "#origin", label: "Asal Usul" },
@@ -26,14 +26,12 @@ export default function Nav() {
             </li>
           ))}
         </ul>
-        <a
-          href={whatsappLink()}
-          target="_blank"
-          rel="noopener noreferrer"
+        <WhatsAppCta
+          source="nav"
           className="rounded-full bg-emerald px-4 py-2 text-sm font-semibold text-on-dark transition-colors hover:bg-emerald-soft"
         >
           Minta Demo
-        </a>
+        </WhatsAppCta>
       </nav>
     </header>
   );

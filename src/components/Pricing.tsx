@@ -1,5 +1,5 @@
 import Reveal from "@/components/Reveal";
-import { whatsappLink } from "@/lib/site-config";
+import WhatsAppCta from "@/components/WhatsAppCta";
 
 const exclusions = [
   "Auto-posting portal rasmi",
@@ -9,8 +9,12 @@ const exclusions = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
-      <div className="mx-auto max-w-3xl text-center">
+    <section id="pricing" className="relative overflow-hidden bg-ink px-5 py-20 sm:px-8 sm:py-28">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-10 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-gold/10 blur-[120px]"
+      />
+      <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
           <h2 className="font-display text-3xl font-bold text-on-dark sm:text-4xl">
             Harga founding REN
@@ -18,7 +22,7 @@ export default function Pricing() {
         </Reveal>
 
         <Reveal delayMs={100}>
-          <div className="mt-10 rounded-2xl border border-gold/30 bg-ink-2/60 p-8 sm:p-10">
+          <div className="mt-10 rounded-2xl border border-gold/30 bg-gradient-to-b from-ink-2/90 to-ink-2/50 p-8 shadow-2xl shadow-gold/5 sm:p-10">
             <p className="text-xs font-semibold uppercase tracking-wide text-gold">
               Founding Price · Early Access
             </p>
@@ -31,14 +35,13 @@ export default function Pricing() {
             <p className="mt-4 text-sm font-semibold text-gold">
               Harga founding — akan naik selepas pelancaran v1.0 penuh.
             </p>
-            <a
-              href={whatsappLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block rounded-full bg-emerald px-6 py-3 text-sm font-semibold text-on-dark transition-colors hover:bg-emerald-soft"
+            <WhatsAppCta
+              source="pricing"
+              checkoutIntent
+              className="mt-6 inline-block rounded-full bg-emerald px-6 py-3 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40"
             >
               Minta Akses Demo
-            </a>
+            </WhatsAppCta>
             <div className="mt-8 border-t border-white/10 pt-6 text-left">
               <p className="text-xs font-semibold uppercase tracking-wide text-on-dark-muted">
                 Tidak termasuk v1.0
