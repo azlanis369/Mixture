@@ -1,7 +1,7 @@
 import EarlyAccessBadge from "@/components/EarlyAccessBadge";
 import PhoneMockup from "@/components/PhoneMockup";
 import Reveal from "@/components/Reveal";
-import { whatsappLink } from "@/lib/site-config";
+import WhatsAppCta from "@/components/WhatsAppCta";
 
 export default function Hero() {
   return (
@@ -30,14 +30,12 @@ export default function Hero() {
             flow — supaya kerja anda nampak setajam hasil anda.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href={whatsappLink()}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsAppCta
+              source="hero"
               className="rounded-full bg-emerald px-6 py-3 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40 sm:text-base"
             >
               Minta Akses Demo
-            </a>
+            </WhatsAppCta>
             <a
               href="#workflow"
               className="text-sm font-medium text-on-dark-muted underline-offset-4 transition-colors hover:text-on-dark hover:underline sm:text-base"

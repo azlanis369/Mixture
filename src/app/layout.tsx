@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
+import AdPixels from "@/components/AdPixels";
 import "./globals.css";
 
 const sora = Sora({
@@ -49,6 +50,7 @@ export default function RootLayout({
       className={`${sora.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink text-on-dark font-body">
+        <AdPixels />
         {children}
       </body>
     </html>

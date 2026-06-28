@@ -1,6 +1,6 @@
 import EarlyAccessBadge from "@/components/EarlyAccessBadge";
 import Reveal from "@/components/Reveal";
-import { whatsappLink } from "@/lib/site-config";
+import WhatsAppCta from "@/components/WhatsAppCta";
 
 export default function FinalCta() {
   return (
@@ -22,14 +22,12 @@ export default function FinalCta() {
             Sertai Early Access RENFlow Plus dan kunci harga founding sebelum
             pelancaran v1.0 penuh.
           </p>
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noopener noreferrer"
+          <WhatsAppCta
+            source="final_cta"
             className="mt-8 inline-block rounded-full bg-emerald px-8 py-3.5 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40 sm:text-base"
           >
             Minta Akses Demo
-          </a>
+          </WhatsAppCta>
         </Reveal>
       </div>
     </section>
