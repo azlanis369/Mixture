@@ -3,9 +3,11 @@ import BeforeAfter from "@/components/BeforeAfter";
 import CoreLayers from "@/components/CoreLayers";
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
+import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import OriginStory from "@/components/OriginStory";
+import ProfilePreview from "@/components/ProfilePreview";
 import Pricing from "@/components/Pricing";
 import Proof from "@/components/Proof";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -19,6 +21,7 @@ export default function Home() {
       <Nav />
       <main className="pb-20 md:pb-0">
         <Hero />
+        <ProfilePreview />
         <OriginStory />
         <BeforeAfter />
         <CoreLayers />
@@ -29,6 +32,7 @@ export default function Home() {
         <Faq />
         <FinalCta />
       </main>
+      <Footer />
       <StickyMobileCta />
     </>
   );

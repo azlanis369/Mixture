@@ -6,14 +6,14 @@ const layers = [
     tag: "Layer 1 · Depan",
     title: "Public Profile Premium",
     body:
-      "Apa client nampak: profile REN yang kemas, scan QR terus, kawasan servis dan listing tersusun. Kredibiliti tanpa kad nama lusuh.",
+      "Trust layer untuk prospect: REN, kawasan servis, listing pilihan, QR dan CTA WhatsApp yang mudah dikongsi. Kredibiliti tanpa kad nama lusuh.",
     icon: IconProfile,
   },
   {
     tag: "Layer 2 · Belakang",
-    title: "CRM Kerja Harian",
+    title: "Workspace Ringan",
     body:
-      "Apa anda guna setiap hari: lead inbox, next action, listing manager dan caption studio — semua dalam satu flow, bukan bertaburan antara app.",
+      "Operating layer untuk listing, media, caption, lead, follow-up dan pipeline tanpa jadi full enterprise CRM. Satu flow, bukan bertaburan antara app.",
     icon: IconLayers,
   },
 ];
