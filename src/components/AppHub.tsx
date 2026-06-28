@@ -2,10 +2,13 @@ import {
   IconBot,
   IconCaption,
   IconChart,
+  IconDeal,
   IconFollowUp,
   IconInbox,
   IconListing,
+  IconMedia,
   IconProfile,
+  IconQr,
 } from "@/components/icons";
 import Reveal from "@/components/Reveal";
 import type { ComponentType } from "react";
@@ -33,16 +36,28 @@ const modules: Module[] = [
     icon: IconListing,
   },
   {
-    name: "Lead Inbox",
+    name: "Media Board",
     status: "Live",
-    body: "Semua lead direkod dalam satu skrin — nama, sumber, listing.",
+    body: "Gambar tersusun ikut listing, bukan bercampur dengan foto peribadi dalam gallery.",
+    icon: IconMedia,
+  },
+  {
+    name: "Lead Capture",
+    status: "Live",
+    body: "WhatsApp enquiry dan form lead direkod automatik dengan sumber tracking.",
     icon: IconInbox,
   },
   {
-    name: "Follow-up Tracker",
+    name: "Mini CRM",
     status: "Live",
-    body: "Next action jelas untuk setiap lead, tak hilang dalam chat.",
+    body: "Status, nota dan next action untuk setiap lead — tak perlu spreadsheet lain.",
     icon: IconFollowUp,
+  },
+  {
+    name: "Deal Pipeline",
+    status: "Live",
+    body: "Track booking, loan, tenancy/SPA hingga closed dalam satu paparan.",
+    icon: IconDeal,
   },
   {
     name: "Caption Studio",
@@ -51,16 +66,22 @@ const modules: Module[] = [
     icon: IconCaption,
   },
   {
+    name: "QR Card",
+    status: "Live",
+    body: "Kad nama digital untuk meeting & sharing — scan terus ke public profile.",
+    icon: IconQr,
+  },
+  {
+    name: "Basic Analytics",
+    status: "Live",
+    body: "Profile views, listing clicks, WhatsApp clicks — tahu apa yang berkesan.",
+    icon: IconChart,
+  },
+  {
     name: "Autobot",
     status: "Draft/Beta",
     body: "Bantu draf respons automatik. Tiada auto-posting portal atau WA Business API rasmi dalam v1.0.",
     icon: IconBot,
-  },
-  {
-    name: "SWOT Intelligence",
-    status: "Live",
-    body: "Lihat funnel Views → Shares → Leads → Booked → Closed dari data sebenar anda.",
-    icon: IconChart,
   },
 ];
 

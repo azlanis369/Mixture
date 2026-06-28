@@ -2,11 +2,9 @@ import Link from "next/link";
 import WhatsAppCta from "@/components/WhatsAppCta";
 
 const links = [
-  { href: "#origin", label: "Asal Usul" },
-  { href: "#app-hub", label: "App Hub" },
-  { href: "#workflow", label: "Workflow" },
-  { href: "#proof", label: "Proof" },
-  { href: "#pricing", label: "Harga" },
+  { href: "#preview", label: "Preview" },
+  { href: "#app-hub", label: "Modules" },
+  { href: "#pricing", label: "Price" },
   { href: "#faq", label: "FAQ" },
 ];
 

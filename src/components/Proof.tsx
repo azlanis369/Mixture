@@ -24,7 +24,7 @@ export default function Proof() {
       <div className="mx-auto max-w-4xl">
         <Reveal className="mb-10 text-center">
           <h2 className="font-display text-3xl font-bold text-on-dark sm:text-4xl">
-            Enjin sebenar di belakang RENFlow Plus.
+            SWOT Intelligence
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-on-dark-muted sm:text-base">
             Sistem yang sama menjana SWOT Intelligence automatik daripada data

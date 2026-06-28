@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import WhatsAppCta from "@/components/WhatsAppCta";
 
 const faqs = [
   {
@@ -6,8 +7,20 @@ const faqs = [
     a: "Ya — ini fasa Early Access. Enjinnya sudah terbukti menyusun kerja sebenar team property; RENFlow Plus ialah versi untuk REN individu. Anda masuk pada harga founding dan bantu bentuk arah produk sebelum pelancaran v1.0 penuh.",
   },
   {
+    q: "Adakah ini auto-posting portal?",
+    a: "Tidak. v1.0 tidak mendakwa ada auto-posting portal rasmi, WhatsApp Business API rasmi atau agency dashboard penuh. Ia dalam roadmap selepas Early Access.",
+  },
+  {
+    q: "Akaun saya terus ada data?",
+    a: "Tidak. Paparan demo menunjukkan contoh aliran. Akaun REN anda bermula kosong dan diisi dengan profile, listing, lead dan workflow anda sendiri.",
+  },
+  {
     q: "Kenapa sesetengah modul label \"Draft/Beta\"?",
     a: "Modul seperti Caption Studio dan Autobot masih dalam fasa penambahbaikan. Anda boleh guna sekarang, tapi anda semak dan hantar sendiri — bukan auto-posting penuh.",
+  },
+  {
+    q: "Autobot buat apa?",
+    a: "Autobot ialah Draft/Beta untuk bantu sediakan draf caption dan follow-up. Ia bukan sistem hantar mesej automatik rasmi.",
   },
   {
     q: "Apa yang tidak termasuk dalam v1.0?",
@@ -42,6 +55,19 @@ export default function Faq() {
             </Reveal>
           ))}
         </div>
+        <Reveal>
+          <p className="mt-10 text-center text-sm leading-relaxed text-on-dark-muted">
+            Kalau sistem kerja anda masih bersepah, jangan tunggu v1.0 penuh.
+          </p>
+          <div className="mt-4 text-center">
+            <WhatsAppCta
+              source="faq_bottom"
+              className="inline-block rounded-full bg-emerald px-6 py-3 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40"
+            >
+              Minta Akses Demo
+            </WhatsAppCta>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
