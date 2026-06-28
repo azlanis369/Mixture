@@ -1,7 +1,22 @@
+import type { CSSProperties } from "react";
+
+import {
+  IconCaption,
+  IconCheck,
+  IconEye,
+  IconFollowUp,
+  IconInbox,
+} from "@/components/icons";
 import Reveal from "@/components/Reveal";
 import { ENGINE_SOURCE_NAME } from "@/lib/site-config";
 
-const funnel = ["Views", "Shares", "Leads", "Booked", "Closed"];
+const funnel = [
+  { stage: "Views", icon: IconEye },
+  { stage: "Shares", icon: IconCaption },
+  { stage: "Leads", icon: IconInbox },
+  { stage: "Booked", icon: IconFollowUp },
+  { stage: "Closed", icon: IconCheck },
+];
 
 export default function Proof() {
   return (
@@ -30,24 +45,31 @@ export default function Proof() {
               <span className="ml-2 text-xs text-on-dark-muted">
                 {ENGINE_SOURCE_NAME}/dashboard
               </span>
+              <span className="ml-auto flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-soft">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-soft" />
+                Live
+              </span>
             </div>
             <div className="p-6 sm:p-10">
               <p className="mb-6 text-xs font-semibold uppercase tracking-wide text-on-dark-muted">
                 Funnel sebenar
               </p>
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:gap-3">
-                {funnel.map((stage, index) => (
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-3">
+                {funnel.map(({ stage, icon: Icon }, index) => (
                   <div key={stage} className="flex-1">
                     <div
-                      className="rounded-lg bg-emerald/80"
-                      style={{
-                        height: "2.25rem",
-                        width: `${100 - index * 14}%`,
-                      }}
+                      className="funnel-bar rounded-lg bg-gradient-to-r from-emerald to-emerald-soft shadow-md shadow-emerald/20"
+                      style={
+                        {
+                          height: "2.25rem",
+                          "--target-w": `${100 - index * 14}%`,
+                        } as CSSProperties
+                      }
                     />
-                    <p className="mt-2 text-xs text-on-dark-muted sm:text-sm">
-                      {stage}
-                    </p>
+                    <div className="mt-2 flex items-center gap-1.5 text-on-dark-muted">
+                      <Icon className="h-3.5 w-3.5 text-emerald-soft" />
+                      <p className="text-xs sm:text-sm">{stage}</p>
+                    </div>
                   </div>
                 ))}
               </div>
