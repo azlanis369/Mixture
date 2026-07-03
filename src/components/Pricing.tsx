@@ -16,7 +16,11 @@ export default function Pricing() {
       />
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
-          <h2 className="font-display text-3xl font-bold text-on-dark sm:text-4xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-gold">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" />
+            100 Founding REN sahaja
+          </span>
+          <h2 className="mt-4 font-display text-3xl font-bold text-on-dark sm:text-4xl">
             Harga founding REN
           </h2>
         </Reveal>
@@ -24,16 +28,22 @@ export default function Pricing() {
         <Reveal delayMs={100}>
           <div className="mt-10 rounded-2xl border border-gold/30 bg-gradient-to-b from-ink-2/90 to-ink-2/50 p-8 shadow-2xl shadow-gold/5 sm:p-10">
             <p className="text-xs font-semibold uppercase tracking-wide text-gold">
-              Founding Price · Early Access
+              Founding Price · Locked Forever
             </p>
-            <p className="mt-4 font-display text-4xl font-bold text-on-dark sm:text-5xl">
-              RM88<span className="text-lg text-on-dark-muted">/bulan</span>
-            </p>
+            <div className="mt-4 flex items-baseline justify-center gap-2">
+              <span className="font-display text-2xl font-medium text-on-dark-muted/60 line-through">
+                RM149
+              </span>
+              <span className="font-display text-4xl font-bold text-on-dark sm:text-5xl">
+                RM69
+              </span>
+              <span className="text-lg text-on-dark-muted">/bulan</span>
+            </div>
             <p className="mt-1 text-sm text-on-dark-muted">
-              atau RM888/tahun · satu akaun individual REN
+              Untuk 100 REN pertama · Kekal selamanya
             </p>
             <p className="mt-4 text-sm font-semibold text-gold">
-              Harga founding — akan naik selepas pelancaran v1.0 penuh.
+              Selepas 100 slot habis, harga standard RM149/bulan.
             </p>
             <WhatsAppCta
               source="pricing"
