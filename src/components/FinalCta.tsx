@@ -19,8 +19,8 @@ export default function FinalCta() {
             Effort anda sama. Kerja anda patut nampak setajam itu.
           </h2>
           <p className="mt-4 text-sm text-on-dark-muted sm:text-base">
-            Sertai Early Access RENFlow Plus dan kunci harga founding sebelum
-            pelancaran v1.0 penuh.
+            Sertai Early Access RENFlow Plus dan kunci harga founding
+            RM69/bulan selamanya — hanya untuk 100 REN pertama.
           </p>
           <WhatsAppCta
             source="final_cta"

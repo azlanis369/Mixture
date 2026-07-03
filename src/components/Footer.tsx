@@ -29,7 +29,7 @@ const policies: Policy[] = [
       {
         heading: "2. Langganan Founding REN",
         body:
-          "Harga founding RM88/bulan (atau RM888/tahun) dikunci untuk akaun individual yang mendaftar dalam tempoh Early Access. Harga standard akan diguna pakai untuk pendaftaran selepas pelancaran v1.0.",
+          "Harga founding RM69/bulan dikunci selamanya untuk 100 akaun individual pertama yang mendaftar dalam tempoh Early Access. Selepas 100 slot dipenuhi, harga standard RM149/bulan diguna pakai untuk pendaftaran seterusnya.",
       },
       {
         heading: "3. Penggunaan yang Dibenarkan",

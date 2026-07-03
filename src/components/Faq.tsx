@@ -27,8 +27,8 @@ const faqs = [
     a: "Auto-posting ke portal rasmi, WhatsApp Business API rasmi, dan agency dashboard penuh belum ada dalam v1.0. Ia dalam roadmap selepas Early Access.",
   },
   {
-    q: "Macam mana dengan harga lepas v1.0?",
-    a: "Harga founding RM88/bulan dikunci untuk REN yang sertai semasa Early Access. Harga akan naik selepas pelancaran v1.0 penuh.",
+    q: "Macam mana dengan harga lepas 100 slot?",
+    a: "Harga founding RM69/bulan dikunci selamanya untuk 100 REN pertama yang sertai semasa Early Access. Slot ke-101 dan seterusnya bayar harga standard RM149/bulan. Kalau anda dalam 100 pertama, harga anda tidak akan naik walaupun v1.0 dilancarkan.",
   },
 ];
 
