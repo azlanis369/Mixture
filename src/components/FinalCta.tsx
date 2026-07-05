@@ -1,8 +1,11 @@
 import EarlyAccessBadge from "@/components/EarlyAccessBadge";
+import PayNowButton from "@/components/PayNowButton";
 import Reveal from "@/components/Reveal";
 import WhatsAppCta from "@/components/WhatsAppCta";
 
 export default function FinalCta() {
+  const hasPayment = !!process.env.NEXT_PUBLIC_BILLPLZ_PAYMENT_URL;
+
   return (
     <section
       id="cta"
@@ -22,12 +25,30 @@ export default function FinalCta() {
             Sertai Early Access RENFlow Plus dan kunci harga founding
             RM69/bulan selamanya — hanya untuk 100 REN pertama.
           </p>
-          <WhatsAppCta
-            source="final_cta"
-            className="mt-8 inline-block rounded-full bg-emerald px-8 py-3.5 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40 sm:text-base"
-          >
-            Minta Akses Demo
-          </WhatsAppCta>
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <PayNowButton
+              source="final_cta_paynow"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald px-8 py-3.5 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40 sm:text-base"
+            >
+              <span>Bayar Sekarang · RM69</span>
+              <span aria-hidden>→</span>
+            </PayNowButton>
+            {hasPayment ? (
+              <WhatsAppCta
+                source="final_cta_secondary"
+                className="text-xs font-medium text-on-dark-muted underline-offset-4 transition-colors hover:text-on-dark hover:underline sm:text-sm"
+              >
+                atau tanya via WhatsApp dulu
+              </WhatsAppCta>
+            ) : (
+              <WhatsAppCta
+                source="final_cta"
+                className="inline-block rounded-full bg-emerald px-8 py-3.5 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40 sm:text-base"
+              >
+                Minta Akses Demo
+              </WhatsAppCta>
+            )}
+          </div>
         </Reveal>
       </div>
     </section>
