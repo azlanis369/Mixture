@@ -1,7 +1,9 @@
 import {
+  IconBell,
   IconBot,
   IconCaption,
   IconChart,
+  IconChat,
   IconDeal,
   IconFollowUp,
   IconInbox,
@@ -9,19 +11,28 @@ import {
   IconMedia,
   IconProfile,
   IconQr,
+  IconTarget,
+  IconVideo,
 } from "@/components/icons";
 import Reveal from "@/components/Reveal";
 import type { ComponentType } from "react";
 
+type Status = "Live" | "Draft/Beta" | "Roadmap";
+
 type Module = {
   name: string;
-  status: "Live" | "Draft/Beta";
+  status: Status;
   body: string;
   icon: ComponentType<{ className?: string }>;
 };
 
-// G1: every module shown here must exist in the beta build.
-// G4: Autobot & Caption Studio stay labelled Draft/Beta — no auto-posting / official WA API claims.
+// G1: modul "Live" wujud dalam beta sekarang.
+// G4: modul yang bergantung pada API luaran (WhatsApp Business, Meta Ads,
+//     Google Meet, Zoom) dilabel jujur sebagai Draft/Beta atau Roadmap —
+//     tiada dakwaan integrasi rasmi penuh dalam v1.0.
+//
+// NOTA: 10 modul pertama ialah modul asal — kekalkan verbatim, jangan tukar
+// ganti. Modul baharu ditambah selepas itu sahaja.
 const modules: Module[] = [
   {
     name: "Public Profile",
@@ -83,7 +94,38 @@ const modules: Module[] = [
     body: "Bantu draf respons automatik. Tiada auto-posting portal atau WA Business API rasmi dalam v1.0.",
     icon: IconBot,
   },
+  // — Modul baharu (CRM capabilities) —
+  {
+    name: "WhatsApp Integration",
+    status: "Draft/Beta",
+    body: "Balas dan chat lead terus dari dalam CRM — perbualan tersimpan pada profile lead, bukan berselerak dalam telefon.",
+    icon: IconChat,
+  },
+  {
+    name: "Automated Follow-ups",
+    status: "Draft/Beta",
+    body: "Reminder automatik dan sequence selepas enquiry, meeting atau demo — konsisten tanpa perlu ingat manual.",
+    icon: IconBell,
+  },
+  {
+    name: "Meta Lead Integration",
+    status: "Roadmap",
+    body: "Tarik lead dari Meta Ads (Facebook/Instagram) terus masuk CRM secara automatik. Tertakluk kepada kelulusan API Meta.",
+    icon: IconTarget,
+  },
+  {
+    name: "Meet & Zoom",
+    status: "Roadmap",
+    body: "Jadual meeting online terus dari CRM, sambung dengan profile lead, dan simpan sejarah meeting. Integrasi Google Meet & Zoom.",
+    icon: IconVideo,
+  },
 ];
+
+const statusStyles: Record<Status, string> = {
+  Live: "bg-emerald/20 text-emerald-soft",
+  "Draft/Beta": "bg-gold/20 text-gold",
+  Roadmap: "bg-white/10 text-on-dark-muted",
+};
 
 export default function AppHub() {
   return (
@@ -94,8 +136,12 @@ export default function AppHub() {
             App Hub
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-on-dark-muted sm:text-base">
-            Setiap modul di bawah wujud dalam beta sekarang. Modul yang belum
-            penuh kami label jujur sebagai Draft/Beta.
+            Kami label jujur setiap modul.{" "}
+            <span className="text-emerald-soft">Live</span> sudah wujud dalam
+            beta,{" "}
+            <span className="text-gold">Draft/Beta</span> sedang diperhalusi,
+            dan <span className="text-on-dark">Roadmap</span> menyusul selepas
+            Early Access.
           </p>
         </Reveal>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -109,11 +155,7 @@ export default function AppHub() {
                       <Icon />
                     </span>
                     <span
-                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${
-                        module.status === "Live"
-                          ? "bg-emerald/20 text-emerald-soft"
-                          : "bg-gold/20 text-gold"
-                      }`}
+                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${statusStyles[module.status]}`}
                     >
                       {module.status}
                     </span>

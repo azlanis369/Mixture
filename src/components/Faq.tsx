@@ -15,8 +15,12 @@ const faqs = [
     a: "Tidak. Paparan demo menunjukkan contoh aliran. Akaun REN anda bermula kosong dan diisi dengan profile, listing, lead dan workflow anda sendiri.",
   },
   {
-    q: "Kenapa sesetengah modul label \"Draft/Beta\"?",
-    a: "Modul seperti Caption Studio dan Autobot masih dalam fasa penambahbaikan. Anda boleh guna sekarang, tapi anda semak dan hantar sendiri — bukan auto-posting penuh.",
+    q: "Apa beza label Live, Draft/Beta dan Roadmap?",
+    a: "Live bermaksud modul sudah wujud dan boleh guna dalam beta sekarang (contoh: Lead Capture, Deal Pipeline, Basic Analytics). Draft/Beta bermaksud modul boleh guna tapi masih diperhalusi (contoh: WhatsApp Integration, Automated Follow-ups, Caption Studio). Roadmap bermaksud modul akan menyusul selepas Early Access (contoh: Meta Lead Integration, Google Meet & Zoom) — sesetengahnya tertakluk kepada kelulusan API pihak ketiga.",
+  },
+  {
+    q: "Ada integrasi WhatsApp, Meta Ads dan Google Meet?",
+    a: "WhatsApp Integration (chat lead dari CRM) dalam Draft/Beta sekarang. Meta Lead Integration (tarik lead dari Meta Ads automatik) dan Google Meet & Zoom (jadual meeting dari CRM) dalam Roadmap — kami tidak dakwa ia siap penuh dalam v1.0 kerana ia bergantung pada kelulusan API rasmi pihak ketiga. Kami label jujur supaya anda tahu apa yang wujud hari ini vs akan datang.",
   },
   {
     q: "Autobot buat apa?",
