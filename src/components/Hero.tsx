@@ -1,4 +1,5 @@
 import EarlyAccessBadge from "@/components/EarlyAccessBadge";
+import FoundingSlots from "@/components/FoundingSlots";
 import PhoneMockup from "@/components/PhoneMockup";
 import Reveal from "@/components/Reveal";
 import WhatsAppCta from "@/components/WhatsAppCta";
@@ -42,6 +43,9 @@ export default function Hero() {
             >
               Lihat Cara Ia Berfungsi
             </a>
+          </div>
+          <div className="mt-6">
+            <FoundingSlots variant="compact" />
           </div>
         </Reveal>
         <Reveal delayMs={150} className="flex justify-center lg:justify-end">

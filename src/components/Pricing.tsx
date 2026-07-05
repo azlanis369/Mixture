@@ -1,3 +1,4 @@
+import FoundingSlots from "@/components/FoundingSlots";
 import Reveal from "@/components/Reveal";
 import WhatsAppCta from "@/components/WhatsAppCta";
 
@@ -16,10 +17,7 @@ export default function Pricing() {
       />
       <div className="relative mx-auto max-w-3xl text-center">
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-gold">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" />
-            100 Founding REN sahaja
-          </span>
+          <FoundingSlots variant="compact" />
           <h2 className="mt-4 font-display text-3xl font-bold text-on-dark sm:text-4xl">
             Harga founding REN
           </h2>
@@ -45,6 +43,9 @@ export default function Pricing() {
             <p className="mt-4 text-sm font-semibold text-gold">
               Selepas 100 slot habis, harga standard RM149/bulan.
             </p>
+            <div className="mt-6 rounded-xl border border-white/10 bg-black/20 p-4 text-left">
+              <FoundingSlots />
+            </div>
             <WhatsAppCta
               source="pricing"
               checkoutIntent
