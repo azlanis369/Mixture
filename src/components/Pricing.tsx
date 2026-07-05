@@ -1,4 +1,5 @@
 import FoundingSlots from "@/components/FoundingSlots";
+import PayNowButton from "@/components/PayNowButton";
 import Reveal from "@/components/Reveal";
 import WhatsAppCta from "@/components/WhatsAppCta";
 
@@ -9,6 +10,8 @@ const exclusions = [
 ];
 
 export default function Pricing() {
+  const hasPayment = !!process.env.NEXT_PUBLIC_BILLPLZ_PAYMENT_URL;
+
   return (
     <section id="pricing" className="relative overflow-hidden bg-ink px-5 py-20 sm:px-8 sm:py-28">
       <div
@@ -46,13 +49,31 @@ export default function Pricing() {
             <div className="mt-6 rounded-xl border border-white/10 bg-black/20 p-4 text-left">
               <FoundingSlots />
             </div>
-            <WhatsAppCta
-              source="pricing"
-              checkoutIntent
-              className="mt-6 inline-block rounded-full bg-emerald px-6 py-3 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40"
-            >
-              Minta Akses Demo
-            </WhatsAppCta>
+            <div className="mt-6 flex flex-col items-center gap-3">
+              <PayNowButton
+                source="pricing_paynow"
+                className="inline-flex items-center gap-2 rounded-full bg-emerald px-8 py-3.5 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40 sm:text-base"
+              >
+                <span>Bayar Sekarang · RM69</span>
+                <span aria-hidden>→</span>
+              </PayNowButton>
+              {hasPayment ? (
+                <WhatsAppCta
+                  source="pricing_secondary"
+                  className="text-xs font-medium text-on-dark-muted underline-offset-4 transition-colors hover:text-on-dark hover:underline sm:text-sm"
+                >
+                  atau tanya via WhatsApp dulu
+                </WhatsAppCta>
+              ) : (
+                <WhatsAppCta
+                  source="pricing"
+                  checkoutIntent
+                  className="rounded-full bg-emerald px-6 py-3 text-sm font-semibold text-on-dark shadow-lg shadow-emerald/30 transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-emerald/40"
+                >
+                  Minta Akses Demo
+                </WhatsAppCta>
+              )}
+            </div>
             <div className="mt-8 border-t border-white/10 pt-6 text-left">
               <p className="text-xs font-semibold uppercase tracking-wide text-on-dark-muted">
                 Tidak termasuk v1.0
