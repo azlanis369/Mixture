@@ -8,6 +8,11 @@ const links = [
   { href: "#faq", label: "FAQ" },
 ];
 
+// Login lives on the RENFlow Plus app surface (e.g. app.renflowplus.com),
+// never superren.group. The link only renders once the app URL is set so
+// it can't 404 before the app is live.
+const appLoginUrl = process.env.NEXT_PUBLIC_APP_LOGIN_URL;
+
 export default function Nav() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/5 bg-ink/80 backdrop-blur-md">
@@ -24,12 +29,22 @@ export default function Nav() {
             </li>
           ))}
         </ul>
-        <WhatsAppCta
-          source="nav"
-          className="rounded-full bg-emerald px-4 py-2 text-sm font-semibold text-on-dark transition-colors hover:bg-emerald-soft"
-        >
-          Minta Demo
-        </WhatsAppCta>
+        <div className="flex items-center gap-4">
+          {appLoginUrl && (
+            <a
+              href={appLoginUrl}
+              className="text-sm font-medium text-on-dark-muted transition-colors hover:text-on-dark"
+            >
+              Log Masuk
+            </a>
+          )}
+          <WhatsAppCta
+            source="nav"
+            className="rounded-full bg-emerald px-4 py-2 text-sm font-semibold text-on-dark transition-colors hover:bg-emerald-soft"
+          >
+            Minta Demo
+          </WhatsAppCta>
+        </div>
       </nav>
     </header>
   );
