@@ -251,6 +251,21 @@ export function IconBell({ className = base }: IconProps) {
   );
 }
 
+export function IconCommission({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M9.5 8.5h3.2a2 2 0 0 1 0 4H9.5m0 0h5m-5 0v3.5m0-7.5v-.5"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function IconLayers({ className = base }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
