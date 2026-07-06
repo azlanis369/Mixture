@@ -99,13 +99,13 @@ const modules: Module[] = [
   // — Modul baharu (CRM capabilities) —
   {
     name: "WhatsApp Integration",
-    status: "Draft/Beta",
+    status: "Live",
     body: "Balas dan chat lead terus dari dalam CRM — perbualan tersimpan pada profile lead, bukan berselerak dalam telefon.",
     icon: IconChat,
   },
   {
     name: "Automated Follow-ups",
-    status: "Draft/Beta",
+    status: "Live",
     body: "Reminder automatik dan sequence selepas enquiry, meeting atau demo — konsisten tanpa perlu ingat manual.",
     icon: IconBell,
   },
