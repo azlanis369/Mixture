@@ -2,11 +2,15 @@ import type { CSSProperties } from "react";
 
 const FOUNDING_CAP = 100;
 
+// Update this as founding REN sign-ups grow. Still overridable via
+// NEXT_PUBLIC_FOUNDING_SLOTS_FILLED if that env var is ever set on Vercel.
+const FALLBACK_FILLED = 2;
+
 function getFilledSlots(): number {
   const raw = process.env.NEXT_PUBLIC_FOUNDING_SLOTS_FILLED;
-  if (!raw) return 0;
+  if (!raw) return FALLBACK_FILLED;
   const n = parseInt(raw, 10);
-  if (Number.isNaN(n) || n < 0) return 0;
+  if (Number.isNaN(n) || n < 0) return FALLBACK_FILLED;
   if (n > FOUNDING_CAP) return FOUNDING_CAP;
   return n;
 }
