@@ -27,10 +27,11 @@ type Module = {
   icon: ComponentType<{ className?: string }>;
 };
 
-// G1: modul "Live" wujud dalam beta sekarang.
-// G4: modul yang bergantung pada API luaran (WhatsApp Business, Meta Ads,
-//     Google Meet, Zoom) dilabel jujur sebagai Draft/Beta atau Roadmap —
-//     tiada dakwaan integrasi rasmi penuh dalam v1.0.
+// G1: modul "Live" bukan spekulasi — ia terbukti dari penggunaan internal
+//     team di superren.group, kini dibuka untuk REN individu.
+// G4: hanya modul yang bergantung pada KELULUSAN API pihak ketiga (Meta Ads,
+//     Google Meet, Zoom) kekal Roadmap — kapasiti wujud, tapi integrasi rasmi
+//     luar kawalan kami. Itu satu-satunya garisan over-claim.
 //
 // NOTA: 10 modul pertama ialah modul asal — kekalkan verbatim, jangan tukar
 // ganti. Modul baharu ditambah selepas itu sahaja.
@@ -110,7 +111,7 @@ const modules: Module[] = [
   },
   {
     name: "Commission Tracker",
-    status: "Draft/Beta",
+    status: "Live",
     body: "Pantau komisen setiap deal — booking, closed dan bayaran — terus tersambung dengan Deal Pipeline. Tahu berapa yang belum masuk.",
     icon: IconCommission,
   },
