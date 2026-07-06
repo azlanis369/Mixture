@@ -4,6 +4,7 @@ import {
   IconCaption,
   IconChart,
   IconChat,
+  IconCommission,
   IconDeal,
   IconFollowUp,
   IconInbox,
@@ -106,6 +107,12 @@ const modules: Module[] = [
     status: "Draft/Beta",
     body: "Reminder automatik dan sequence selepas enquiry, meeting atau demo — konsisten tanpa perlu ingat manual.",
     icon: IconBell,
+  },
+  {
+    name: "Commission Tracker",
+    status: "Draft/Beta",
+    body: "Pantau komisen setiap deal — booking, closed dan bayaran — terus tersambung dengan Deal Pipeline. Tahu berapa yang belum masuk.",
+    icon: IconCommission,
   },
   {
     name: "Meta Lead Integration",
