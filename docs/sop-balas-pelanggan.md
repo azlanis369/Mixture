@@ -2,7 +2,11 @@
 
 > Set ayat sedia guna untuk admin balas enquiry, onboarding lepas bayar, dan
 > sokongan pelanggan. Nilai sebenar dah diisi (link login, harga, nombor WA).
-> Tinggal ganti `[Nama]`, emel pelanggan, dan `[link video]` bila membalas.
+> Tinggal ganti `[Nama]` dan emel pelanggan bila membalas.
+>
+> Nota: video demo (4 minit) dihantar manual ke WhatsApp pada siapa yang minta
+> (belum di-host). Kalau nanti nak skala, upload ke YouTube Unlisted → hantar
+> link je berkali-kali.
 
 **Rujukan tetap:**
 - Login app: `https://app.renflowplus.com/login`
@@ -20,7 +24,7 @@
 > RM69/bulan founding (100 slot pertama, terkunci selamanya walaupun kami naik ke RM149 nanti). Termasuk: Public Profile, Listing Manager, Lead Capture, Mini CRM, Deal Pipeline, WhatsApp Integration, Automated Follow-ups & Commission Tracker. Nak saya aktifkan akaun founding awak sekarang?
 
 ### ③ Nak try dulu
-> Boleh! Video demo ringkas: [link video]. Nak try tangan sendiri pun boleh — reply "OK DEMO", saya hantar akses.
+> Boleh! Reply je "NAK DEMO" — saya hantar video demo penuh (4 minit) terus kat sini 🎬 Lepas tengok, kalau berkenan saya terus aktifkan akaun founding awak.
 
 ### ④ Objection ("betul jalan ke ni?")
 > Faham nak pasti dulu. RENFlow Plus dibina dari enjin yang memang dipakai setiap hari oleh team hartanah sebenar — bukan prototaip. Setiap modul "Live" memang berfungsi 100%. Boleh saya tunjuk demo terus supaya awak nampak sendiri?
@@ -56,6 +60,45 @@
 
 ### ⑩ Refund / cancel
 > Hi [Nama], maaf dengar awak nak cancel. Boleh kongsi sebabnya — saya nak faham kalau ada isu boleh selesai dulu? (Kalau tetap nak) Okay, saya proses refund/cancel. Ambil masa 3–5 hari bekerja. Akaun dinyahaktifkan lepas ni, data disimpan 30 hari kalau nak sambung balik.
+
+---
+
+## Ayat Blasting (kenalkan diri + promo)
+
+> Untuk broadcast ke kawan-kawan REN pelbagai agensi. Selit no. REN & tahun
+> aktif dalam versi penuh untuk tambah kredibiliti (cth: "REN 36963, aktif
+> sejak 2021").
+
+### 🔥 Versi penuh (personal + padu)
+> Assalamualaikum & salam sejahtera semua 👋
+>
+> Saya **Azlan**, REN macam korang jugak. Selama ni saya penat sendiri — listing bersepah, lead hilang dalam WhatsApp, follow-up terlepas sebab tak sempat. Jadi saya bina satu sistem untuk selesaikan masalah tu… dan sekarang saya nak kongsi dengan korang.
+>
+> Namanya **RENFlow Plus** 🏠
+> Satu tempat untuk susun **profile premium + listing + lead + follow-up + deal pipeline + komisen** — semua dalam satu flow. Prospect nampak korang kemas & pro, korang pula tak lagi terkejar-kejar.
+>
+> ✅ Public profile + QR card boleh share terus
+> ✅ Lead auto-rekod, ada mini CRM & next action
+> ✅ WhatsApp integration + follow-up automatik
+> ✅ Track booking → loan → closed + komisen
+>
+> Sekarang fasa **Founding REN** — **RM69/bulan, TERKUNCI SELAMANYA** untuk 100 orang pertama je. Lepas tu naik RM149. 💎
+>
+> Tengok sendiri 👉 https://app.renflowplus.com
+> Nak tanya / nak demo, WhatsApp saya terus: wa.me/60105013699
+>
+> Jom kemaskan kerja kita sama-sama 🚀
+
+### ⚡ Versi ringkas (blast pantas)
+> Salam REN! 👋 Saya Azlan — REN yang penat dengan kerja bersepah, jadi saya bina **RENFlow Plus**: profile, listing, lead, follow-up & komisen dalam SATU sistem.
+>
+> 🎁 Founding price **RM69/bulan terkunci selamanya** (100 slot pertama je, lepas tu RM149).
+>
+> Tengok: https://app.renflowplus.com
+> Tanya saya: wa.me/60105013699
+
+### 💬 Versi teaser (status/story)
+> REN, korang pun rasa sama tak — listing bersepah, lead hilang dalam WA? 😩 Saya dah selesaikan. **RENFlow Plus**, RM69/bulan terkunci selamanya (founding, 100 slot je). 👉 app.renflowplus.com
 
 ---
 
