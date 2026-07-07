@@ -72,9 +72,10 @@
 ### 🔥 Versi penuh (personal + padu)
 > Assalamualaikum & salam sejahtera semua 👋
 >
-> Saya **Azlan**, REN macam korang jugak. Selama ni saya penat sendiri — listing bersepah, lead hilang dalam WhatsApp, follow-up terlepas sebab tak sempat. Jadi saya bina satu sistem untuk selesaikan masalah tu… dan sekarang saya nak kongsi dengan korang.
+> Saya **Azlan Zakaria**, REN macam korang jugak. Selama ni saya penat sendiri — listing bersepah, lead hilang dalam WhatsApp, follow-up terlepas sebab tak sempat. Jadi saya bina satu sistem untuk selesaikan masalah tu… dan sekarang saya nak kongsi dengan korang.
 >
 > Namanya **RENFlow Plus** 🏠
+>
 > Satu tempat untuk susun **profile premium + listing + lead + follow-up + deal pipeline + komisen** — semua dalam satu flow. Prospect nampak korang kemas & pro, korang pula tak lagi terkejar-kejar.
 >
 > ✅ Public profile + QR card boleh share terus
@@ -84,10 +85,17 @@
 >
 > Sekarang fasa **Founding REN** — **RM69/bulan, TERKUNCI SELAMANYA** untuk 100 orang pertama je. Lepas tu naik RM149. 💎
 >
-> Tengok sendiri 👉 https://app.renflowplus.com
-> Nak tanya / nak demo, WhatsApp saya terus: wa.me/60105013699
+> Tengok sendiri strukturnya satu persatu 👉 https://renflowplus.com
 >
+> ATAU
+>
+> Minta demo, WhatsApp saya terus: wa.me/60105013699 👌🏼
+>
+> _bermula dari kelemahan REN, untuk manfaat semua REN_
 > Jom kemaskan kerja kita sama-sama 🚀
+>
+> Dengan rendah hati & budi,
+> Jumpa kita nanti dalam sistem RENFlow Plus okeh 🦾
 
 ### ⚡ Versi ringkas (blast pantas)
 > Salam REN! 👋 Saya Azlan — REN yang penat dengan kerja bersepah, jadi saya bina **RENFlow Plus**: profile, listing, lead, follow-up & komisen dalam SATU sistem.
