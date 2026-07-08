@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import AdPixels from "@/components/AdPixels";
 import "./globals.css";
 
@@ -52,6 +53,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-ink text-on-dark font-body">
         <AdPixels />
         {children}
+        <Analytics />
       </body>
     </html>
   );
