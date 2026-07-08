@@ -112,7 +112,12 @@
 
 ## Cara provision akaun pelanggan (rujukan admin)
 
-1. Pelanggan bayar → mereka daftar di `https://app.renflowplus.com/login` (atau admin cipta akaun di Supabase → Authentication → Users → Add user).
+1. Pelanggan bayar → admin cipta akaun di **Supabase → Authentication → Users → Add user** (tick **Auto Confirm User**). *(Buat masa ni elak minta pelanggan daftar sendiri — email pengesahan masih terhad sehingga SMTP sendiri disambung.)*
 2. Akaun baru mula sebagai `agent` + `pending` secara automatik.
-3. Aktifkan dari **Admin Panel → senarai Pengguna → butang "Aktifkan"** (login sebagai super_admin).
+3. Di **Admin Panel → senarai Pengguna** (login super_admin), pada baris pelanggan itu:
+   - **Pelanggan BERBAYAR** → klik terus **+12b** (1 tahun) / **+3b** / **+1b**. Butang ni **terus mengaktifkan akaun + set tarikh tamat langganan sekali**. Bila tempoh habis, pelanggan auto-jumpa skrin "Langganan Tamat" & kena renew.
+   - Butang **"Aktifkan"** biasa hanya set `active` **tanpa tarikh tamat** = akses tanpa had. **Guna untuk akaun admin/percuma/staff sahaja**, JANGAN untuk pelanggan berbayar (nanti mereka dapat akses percuma selamanya).
+   - Butang **∞** = akses selamanya (untuk founding/lifetime yang memang tak tamat).
 4. Guna ayat ⑥ untuk hantar arahan onboarding.
+
+> ⚠️ **Peraturan mudah:** pelanggan bayar → **selalu guna butang +Nb**, bukan "Aktifkan". Itu yang menghubungkan bayaran dengan tempoh akses.
