@@ -266,6 +266,25 @@ export function IconCommission({ className = base }: IconProps) {
   );
 }
 
+export function IconPoster({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>
+      <rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M4 14l4-4 3 3 4-5 5 6"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M15.5 6.5l1.2 2 2 .3-1.5 1.4.4 2.1L15.5 11l-2.1 1.3.4-2.1-1.5-1.4 2-.3 1.2-2Z"
+        fill="currentColor"
+        opacity="0.85"
+      />
+    </svg>
+  );
+}
+
 export function IconLayers({ className = base }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden>

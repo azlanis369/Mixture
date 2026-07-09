@@ -10,6 +10,7 @@ import {
   IconInbox,
   IconListing,
   IconMedia,
+  IconPoster,
   IconProfile,
   IconQr,
   IconTarget,
@@ -25,6 +26,9 @@ type Module = {
   status: Status;
   body: string;
   icon: ComponentType<{ className?: string }>;
+  // "Baru" pill for freshly-shipped modules — surfaces so agents can spot
+  // what's new at a glance. Hand-set, not auto — we want to control emphasis.
+  isNew?: boolean;
 };
 
 // G1: modul "Live" bukan spekulasi — ia terbukti dari penggunaan internal
@@ -116,6 +120,13 @@ const modules: Module[] = [
     icon: IconCommission,
   },
   {
+    name: "Poster Studio",
+    status: "Live",
+    body: "1-klik jana poster listing branded — 3 template (Hero, Personal REN, Galeri Multi-Foto). Muat turun PNG terus untuk WhatsApp, IG dan FB.",
+    icon: IconPoster,
+    isNew: true,
+  },
+  {
     name: "Meta Lead Integration",
     status: "Roadmap",
     body: "Tarik lead dari Meta Ads (Facebook/Instagram) terus masuk CRM secara automatik. Tertakluk kepada kelulusan API Meta.",
@@ -162,11 +173,18 @@ export default function AppHub() {
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald/15 text-emerald-soft transition-colors group-hover:bg-emerald/25">
                       <Icon />
                     </span>
-                    <span
-                      className={`shrink-0 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${statusStyles[module.status]}`}
-                    >
-                      {module.status}
-                    </span>
+                    <div className="flex shrink-0 flex-wrap items-center justify-end gap-1.5">
+                      {module.isNew ? (
+                        <span className="rounded-full bg-gold px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-ink">
+                          Baru
+                        </span>
+                      ) : null}
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${statusStyles[module.status]}`}
+                      >
+                        {module.status}
+                      </span>
+                    </div>
                   </div>
                   <h3 className="mt-4 font-display text-base font-semibold text-on-dark">
                     {module.name}

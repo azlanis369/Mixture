@@ -30,6 +30,22 @@ export default function Hero() {
             RENFlow Plus susun profile, listing, lead dan follow-up dalam satu
             flow — supaya kerja anda nampak setajam hasil anda.
           </p>
+          <a
+            href="#app-hub"
+            className="group mt-6 inline-flex max-w-xl items-start gap-3 rounded-2xl border border-gold/30 bg-gold/5 p-4 text-left transition-colors hover:border-gold/50 hover:bg-gold/10"
+          >
+            <span className="mt-0.5 shrink-0 rounded-full bg-gold px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-ink">
+              Baru
+            </span>
+            <span className="text-sm text-on-dark sm:text-base">
+              <span className="font-semibold text-gold">Poster Studio</span>{" "}
+              — 1-klik jana poster listing branded, 3 template (Hero, Personal
+              REN, Galeri). Terus muat turun PNG.{" "}
+              <span className="whitespace-nowrap text-on-dark-muted underline-offset-2 group-hover:underline">
+                Lihat →
+              </span>
+            </span>
+          </a>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <WhatsAppCta
               source="hero"
