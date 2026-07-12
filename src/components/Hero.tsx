@@ -40,7 +40,7 @@ export default function Hero() {
             <span className="text-sm text-on-dark sm:text-base">
               <span className="font-semibold text-gold">Poster Studio</span>{" "}
               — 1-klik jana poster listing branded, 3 template (Hero, Personal
-              REN, Galeri). Terus muat turun PNG.{" "}
+              REN, Galeri Multi-Foto). Terus muat turun PNG.{" "}
               <span className="whitespace-nowrap text-on-dark-muted underline-offset-2 group-hover:underline">
                 Lihat →
               </span>
