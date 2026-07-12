@@ -46,6 +46,11 @@ const policies: Policy[] = [
         body:
           "Rujuk Dasar Pembatalan di sebelah untuk butiran lengkap.",
       },
+      {
+        heading: "6. Kepatuhan Profesional REN",
+        body:
+          "RENFlow Plus adalah alat pengurusan kerja untuk Real Estate Negotiator (REN) berdaftar di bawah Lembaga Penilai, Pentaksir, Ejen Harta Tanah dan Pengurus Harta (LPPEH). Ia bukan pengganti kepada nombor pendaftaran REN, sijil profesional atau syarat-syarat rasmi LPPEH — pengguna bertanggungjawab memastikan diri patuh sepenuhnya kepada garis panduan LPPEH dan agensi masing-masing.",
+      },
     ],
   },
   {
