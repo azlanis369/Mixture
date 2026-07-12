@@ -7,4 +7,3 @@ export function whatsappLink(message: string = WHATSAPP_DEMO_MESSAGE) {
 }
 
 export const SITE_NAME = "RENFlow Plus";
-export const ENGINE_SOURCE_NAME = "superren.group";

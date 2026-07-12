@@ -8,7 +8,6 @@ import {
   IconInbox,
 } from "@/components/icons";
 import Reveal from "@/components/Reveal";
-import { ENGINE_SOURCE_NAME } from "@/lib/site-config";
 
 const funnel = [
   { stage: "Views", icon: IconEye },
@@ -34,16 +33,16 @@ export default function Proof() {
         </Reveal>
 
         <Reveal>
-          {/* Browser-mockup frame for the real {ENGINE_SOURCE_NAME} SWOT + funnel view.
-              TODO(azlan): swap this structural diagram for a real screenshot
-              (e.g. public/proof-superren-funnel.png) once you can share one. */}
+          {/* Structural diagram of the funnel view inside RENFlow Plus.
+              Swap for a real screenshot from app.renflowplus.com once an
+              agent has enough data to demo. */}
           <div className="overflow-hidden rounded-2xl border border-white/10 bg-ink-2 shadow-2xl shadow-black/40">
             <div className="flex items-center gap-2 border-b border-white/10 bg-black/30 px-4 py-2.5">
               <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
               <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
               <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
               <span className="ml-2 text-xs text-on-dark-muted">
-                {ENGINE_SOURCE_NAME}/dashboard
+                app.renflowplus.com/dashboard
               </span>
               <span className="ml-auto flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-soft">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-soft" />
@@ -78,8 +77,9 @@ export default function Proof() {
         </Reveal>
 
         <p className="mt-6 text-center text-xs text-on-dark-muted">
-          Paparan menggunakan data sistem sebenar dari deployment
-          superREN.group CRM Pro. Akaun anda bermula kosong.
+          Struktur funnel diambil dari pengalaman membina & mengendalikan
+          sistem hartanah internal sebelum RENFlow Plus. Akaun anda sendiri
+          bermula kosong.
         </p>
       </div>
     </section>

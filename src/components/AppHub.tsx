@@ -31,8 +31,9 @@ type Module = {
   isNew?: boolean;
 };
 
-// G1: modul "Live" bukan spekulasi — ia terbukti dari penggunaan internal
-//     team di superren.group, kini dibuka untuk REN individu.
+// G1: modul "Live" bukan spekulasi — pattern-nya terbukti dari sistem
+//     hartanah internal yang dibina sebelum ini, kini dibuka untuk REN
+//     individu melalui RENFlow Plus.
 // G4: hanya modul yang bergantung pada KELULUSAN API pihak ketiga (Meta Ads,
 //     Google Meet, Zoom) kekal Roadmap — kapasiti wujud, tapi integrasi rasmi
 //     luar kawalan kami. Itu satu-satunya garisan over-claim.

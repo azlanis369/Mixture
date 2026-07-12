@@ -16,7 +16,7 @@ const faqs = [
   },
   {
     q: "Apa beza label Live, Draft/Beta dan Roadmap?",
-    a: "Live bermaksud modul sudah wujud dan terbukti diguna internal team di superREN.group — kini dibuka untuk REN individu (contoh: Lead Capture, Deal Pipeline, Commission Tracker, WhatsApp Integration, Automated Follow-ups). Draft/Beta bermaksud modul boleh guna tapi masih diperhalusi (contoh: Caption Studio, Autobot). Roadmap bermaksud modul akan menyusul selepas Early Access (contoh: Meta Lead Integration, Google Meet & Zoom) — tertakluk kepada kelulusan API pihak ketiga.",
+    a: "Live bermaksud modul sudah wujud dan boleh guna hari ini dalam RENFlow Plus — pattern-nya terbukti dari sistem hartanah internal yang dibina & dikendalikan sebelum ini, kini dibuka untuk REN individu (contoh: Lead Capture, Deal Pipeline, Commission Tracker, WhatsApp Integration, Automated Follow-ups). Draft/Beta bermaksud modul boleh guna tapi masih diperhalusi (contoh: Caption Studio, Autobot). Roadmap bermaksud modul akan menyusul selepas Early Access (contoh: Meta Lead Integration, Google Meet & Zoom) — tertakluk kepada kelulusan API pihak ketiga.",
   },
   {
     q: "Ada integrasi WhatsApp, Meta Ads dan Google Meet?",
