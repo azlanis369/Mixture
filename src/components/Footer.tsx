@@ -138,7 +138,7 @@ const policies: Policy[] = [
       {
         heading: "Data proof",
         body:
-          "Angka funnel dan statistik yang dipaparkan dalam laman ini adalah dari deployment sebenar superREN.group CRM Pro sebagai contoh struktur. Akaun REN individu bermula kosong dan diisi dengan data anda sendiri.",
+          "Struktur funnel dan susunan modul yang dipaparkan dalam laman ini diambil dari pengalaman membina sistem hartanah internal sebelum RENFlow Plus, sebagai contoh struktur — bukan angka pengguna lain. Akaun REN individu bermula kosong dan diisi dengan data anda sendiri.",
       },
     ],
   },
