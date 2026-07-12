@@ -1,6 +1,6 @@
 # STATE — RENFlow Plus (Mixture landing)
 
-Updated: 2026-07-12 · Loop #1 outcome.
+Updated: 2026-07-12 · Loop #2 outcome.
 
 Paired with the loop kickoff prompt (below §Kickoff). This file is the
 work-tracking artefact — read + rewrite it at the start and end of every
@@ -48,14 +48,28 @@ Checker passes: separate re-read against G1–G5, `grep superren src/`
 (only remaining hit is a defensive code comment in `Nav.tsx`), and
 `npm run build` green.
 
-## Open items (P2 — next loop)
+## Loop #2 — DONE ✅ (12 Jul 2026)
 
-- **Poster template naming inconsistency.** `Hero.tsx:43` says "Galeri";
-  `AppHub.tsx:125` says "Galeri Multi-Foto". Unify to "Galeri Multi-Foto".
-- **LPPEH full name on landing.** OG image + copy uses the "LPPEH"
-  short form. Verify the landing has the full board name
-  ("Lembaga Penilai, Pentaksir, Ejen Harta Tanah dan Pengurus Harta")
-  at least once (footer/legal/About) for credibility. Add if missing.
+Both P2 items from Loop #1 closed in PR #30 (merged, `187e61b`):
+
+- **Poster template naming unified.** Hero callout now reads "Galeri
+  Multi-Foto" to match App Hub. `grep Galeri src/` returns only two
+  hits, both descriptive.
+- **Full LPPEH board name added to landing.** New section
+  `#6 Kepatuhan Profesional REN` inside Footer's Terma & Syarat spells
+  out "Lembaga Penilai, Pentaksir, Ejen Harta Tanah dan Pengurus Harta
+  (LPPEH)" once, then uses the abbreviation. Also clarifies that
+  RENFlow Plus is a workflow tool, not a substitute for REN
+  registration.
+
+Checker: separate re-read + `grep`, `tsc --noEmit` clean,
+`npm run build` green. Guardrails intact (no superren.group live claim,
+copy honest about beta register).
+
+## Open items — next loop
+
+None right now. Next loop starts with a fresh triage against G1–G5 to
+find whatever surfaces after these polishes.
 
 ## Stop conditions
 
@@ -80,6 +94,16 @@ Checker passes: separate re-read against G1–G5, `grep superren src/`
   live on-page. When removing a copy claim, also delete the constant
   that fed it — leaving it dangling invites a future component to
   reintroduce the claim.
+- **Two names for one thing = future doubt** (Loop #2). Hero said
+  "Galeri", App Hub said "Galeri Multi-Foto" for the same template.
+  A lead reading top-to-bottom will wonder if it's two features. Any
+  time a product-facing name is coined, grep the repo before
+  committing — one canonical string, everywhere.
+- **Regulator names need the full form once, then the acronym**
+  (Loop #2). Landing had "LPPEH" everywhere but never spelled the
+  board name out — that reads confident to insiders and vague to
+  everyone else. Same rule for any Malaysian regulator/board that
+  appears on landing/legal.
 
 ---
 
